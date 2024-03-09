@@ -2,6 +2,7 @@
 
 #Para ver info usar ?comando exmplo = ?c()
 
+
 #Vector -> c()
 genero <- c("feminino", "masculino")
 #Matriz -> matrix()
@@ -80,5 +81,14 @@ v<c(15,14,7,8) #criar um vetor
 leght(dados$deita) #tamanho do vetor 
 
 
+#'*NA VALUES*
+
+dados2 <-data.frame(var1=2:5,var2=c(1,NA,6,12))
+
+any(is.na(dados2)) #verificar se existe NA values
+
+sum(dados2$var2 ,na.rm=TRUE)  #CONTAS sem na values
+
+dados3<- na.omit(dados2) #Retirar linhas com u ou mais na
 
 
