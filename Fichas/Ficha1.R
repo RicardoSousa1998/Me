@@ -70,3 +70,15 @@ nrow(stroke)
 #3 (e)
 nrow(stroke[stroke$dgn=="ID",])
 
+
+#3 (f)
+
+(nrow(stroke[stroke$dead=="TRUE",])/ nrow(stroke))*100
+
+
+#3 (g)
+nrow(stroke[stroke$coma==1 & stroke$diab=="YES",])
+
+#3 (h)
+
+nrow(stroke[stroke$obsmonths==0.1,])
