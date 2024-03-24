@@ -120,3 +120,56 @@ nrow(stroke[stroke$coma==1 & stroke$diab=="YES",])
 #3 (h)
 
 nrow(stroke[stroke$obsmonths==0.1,])
+
+#4
+
+#4 (a)
+
+#Genero: Qualitativa Nominal
+#Idade: Quantitativa Contínua
+#Altura: Quantitativa Contínua
+#Peso: Quantitativa Contínua
+#FAVC: Qualitativa Nominal
+#FCVC: Qualitativa Ordinal
+#NCP: Quantitativa Discreta
+#CAEC: Qualitativa Nominal
+#Fumar: Qualitativa Nominal
+#CH2O: Qualitativa Ordinal
+#FAF: Qualitativa Ordinal
+#CALC: Qualitativa Nominal
+#MTRANS: Qualitativa Nominal
+
+#4 (b)
+
+#R:2111
+nrow(obesidade)
+
+#4 (c)
+#R:88% +/-
+(nrow(obesidade[obesidade$FAVC==1,])/ nrow(obesidade))*100
+
+#4 (d)
+#R:97% +/-
+
+(nrow(obesidade[obesidade$CAEC %in% c("S", "F","A"), ])/ nrow(obesidade))*100
+
+#4 (e)
+#R:75%
+(nrow(obesidade[obesidade$MTRANS %in% c("Transportes_Publicos", "Bicicleta"), ])/ nrow(obesidade))*100
+
+
+#4 (f)
+
+DescTools::Freq(obesidade$NCP)
+
+
+#4 (g)
+
+
+#4 (h)
+#R:17
+nrow(obesidade[obesidade$Idade>44,])
+
+#4 (i)
+#R:84% +/-
+(nrow(obesidade[obesidade$Altura<1.80,])/ nrow(obesidade))*100
