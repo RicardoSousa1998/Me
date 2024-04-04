@@ -3,6 +3,12 @@
 #Para ver info usar ?comando exmplo = ?c()
 
 
+#Fractions 
+
+library(MASS)
+fractions(0.91176470588)
+
+
 #Vector -> c()
 genero <- c("feminino", "masculino")
 #Matriz -> matrix()

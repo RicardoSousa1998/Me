@@ -165,6 +165,94 @@ DescTools::Freq(obesidade$NCP)
 
 #4 (g)
 
+#i.
+
+
+k1 <- 8   # 8 classes
+h1 <- 6   # amplitude 6 anos
+
+# mínimo e máximo das classes
+valor.min1 <- 14   # primeira classe a começar nos 14 anos
+(valor.max1 <- valor.min1 + h1*k1)
+
+#extremos das classes
+(cortes1 <- seq(valor.min1, valor.max1, by=h1))
+
+# intervalos abertos à esquerda e fechados à direita
+# como o mínimo dos dados = ao primeiro valor da primeira classe
+# a primeira classe tem de ser fechada dos dois lados
+(classes1 <- cut(obesidade$Idade, breaks=cortes1, right=TRUE, include.lowest=TRUE))
+
+# tabela de frequências
+(ni.hi <- table(classes1))              # frequências absolutas
+(fi.hi <- round(prop.table(ni.hi),4))   # frequências relativas
+(Ni.hi <- cumsum(ni.hi))                # frequências absolutas acumuladas
+(Fi.hi <- round(cumsum(fi.hi),4))       # frequências relativas acumuladas
+
+(tabela.frequencias.Idade <- data.frame(i=1:nrow(ni.hi),
+                                        xi=names(ni.hi),
+                                        ni=as.integer(ni.hi),
+                                        fi=as.numeric(fi.hi),
+                                        Ni=as.integer(Ni.hi),
+                                        Fi=as.numeric(Fi.hi)))
+
+
+# 3 (g) ii.
+
+
+#extremos das classes
+cortes2 <- c(1.45,1.60,1.80,2.00)
+
+# intervalos abertos à esquerda e fechados à direita
+# a primeira classe fechada dos dois lados
+(classes2 <- cut(obesidade$Altura, breaks=cortes2, right=TRUE, include.lowest=TRUE))
+
+# tabela de frequências
+(ni.hii <- table(classes2))               # frequências absolutas
+(fi.hii <- round(prop.table(ni.hii),4))   # frequências relativas
+(Ni.hii <- cumsum(ni.hii))                # frequências absolutas acumuladas
+(Fi.hii <- round(cumsum(fi.hii),4))       # frequências relativas acumuladas
+
+(tabela.frequencias.Altura <- data.frame(i=1:nrow(ni.hii),
+                                         xi=names(ni.hii),
+                                         ni=as.integer(ni.hii),
+                                         fi=as.numeric(fi.hii),
+                                         Ni=as.integer(Ni.hii),
+                                         Fi=as.numeric(Fi.hii)))
+
+
+##############################################################
+# 3 (g) iii.
+
+
+(k3<-trunc(1+log(n)/log(2)))   # número de classes
+(h3 <-  (max(obesidade$Peso)-min(obesidade$Peso))/k3)   # amplitude das classes
+
+# mínimo e máximo das classes
+(valor.min3 <- min(obesidade$Peso))
+(valor.max3 <- valor.min3 + h3*k3)
+
+#extremos das classes
+(cortes3 <- seq(valor.min3, valor.max3, by=h3))
+
+# intervalos fechados à esquerda e abertos à direita
+# como o maximo dos dados é igual ao último valor da última classe
+# a última classe tem de ser fechada nos dois lados
+(classes3 <- cut(obesidade$Peso, breaks=cortes3, right=FALSE, include.lowest=TRUE))
+
+# tabela de frequências
+(ni.hiii <- table(classes3))                # frequências absolutas
+(fi.hiii <- round(prop.table(ni.hiii),4))   # frequências relativas
+(Ni.hiii <- cumsum(ni.hiii))                # frequências absolutas acumuladas
+(Fi.hiii <- round(cumsum(fi.hiii),4))       # frequências relativas acumuladas
+
+(tabela.frequencias.Peso <- data.frame(i=1:nrow(ni.hiii),
+                                       xi=names(ni.hiii),
+                                       ni=as.integer(ni.hiii),
+                                       fi=as.numeric(fi.hiii),
+                                       Ni=as.integer(Ni.hiii),
+                                       Fi=as.numeric(Fi.hiii)))
+
 
 #4 (h)
 #R:17
