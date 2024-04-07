@@ -8,6 +8,11 @@
 library(MASS)
 fractions(0.91176470588)
 
+#'*VARIAVEIS* 
+#Qualitativos Nominal :a ordem das categorias não tem significado
+#Qualitativos Ordinal : ha uma ordem natural das categorias
+#Quantitativos Discreta :  os valores podem ordenar-se, mas entre dois valores consecutivos nao pode existir um valor intermedio
+#Quantitativas Contınua:pode tomar qualquer valor num certo intervalo (mediçoes)
 
 #Vector -> c()
 genero <- c("feminino", "masculino")
@@ -19,6 +24,7 @@ tabela <- data.frame(genero = genero,idade=c(20,18))
 
 #'*FICHEIROS* 
 #'*Import*
+#'**
 
 #ficheiros de texto (.txt, .csv) -> read.table(file,header=FALSE,sep="",dec=".",...) |read.csv(file,...)
 #folhas de cálculo (.xls, .xlsx) -> library(readxl)  & read_excel(file.shet=null,range=null,col_name=true,...)
@@ -98,3 +104,82 @@ sum(dados2$var2 ,na.rm=TRUE)  #CONTAS sem na values
 dados3<- na.omit(dados2) #Retirar linhas com u ou mais na
 
 
+#'*Tabelas de frequencias*
+
+
+DescTools::Freq(obesidade$NCP)
+
+#ou
+
+
+(ni.preco <- table(hotel_df$preco))          # Frequências Absolutas
+(fi.preco <- round(prop.table(ni.preco), 4))  # frequências Relativas
+(Ni.preco <- cumsum(ni.preco))                # frequências Absolutas Acumuladas
+(Fi.preco <- round(cumsum(fi.preco), 4))      # frequências Relativas Acumuladas
+
+(tabela_preco <- data.frame(
+  i = 1:nrow(ni.preco),
+  xi = names(ni.preco),
+  ni = as.integer(ni.preco),
+  fi = as.numeric(fi.preco),
+  Ni = as.integer(Ni.preco),
+  Fi = as.numeric(Fi.preco)
+))
+
+print(tabela_preco)
+
+#'*Classes (quantitativas contınuas)*
+
+#Regra de Sturges
+
+#k = ⌊1 + log2 n⌋ (  =)⌊ 1(+(ln n)/ln 2⌋
+#n = numero de elementos numa lista 
+
+
+#amplitude da classe
+
+H= (max(xi)-min(xi))/k
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###verificar isto
+library(ggplot2)
+a <- data.frame(x,p_x) #cria um dataframe para usar ggplot
+
+ggplot(a, aes(x=x, y=p_x)) + geom_bar(stat="identity",fill="steelblue")+
+  ggtitle('Distribuição Binomial - Sangue Tipo A')+
+  geom_text(aes(label=p_x), vjust=1.6, color="white", size=3.5)

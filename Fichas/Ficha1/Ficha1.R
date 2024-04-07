@@ -79,7 +79,7 @@ nrow(hotel_df[hotel_df$pais %in% c("Espanha", "Portugal"), ])
 #3
 
 #3(a)
-#Popula??o: Os 829 casos de acidente vascular cerebral (AVC) que ocorreram na Est?nia durante o per?odo de 1991-1993.
+#Populaçao: Os 829 casos de acidente vascular cerebral (AVC) que ocorreram na Estonia durante o per?odo de 1991-1993.
 
 #Unidade estat?stica: Cada caso individual de AVC dentro da amostra de 829 casos.
 
