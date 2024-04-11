@@ -15,7 +15,7 @@ barplot(
   ni.sex,                                               
   main = "Sex",      
 # xlab = "Sex",                                         
-  ylab = "FrequÃªncias absolutas",                        
+  ylab = "Frequencias absolutas",                        
   col = 2:4,                                            
   ylim = c(0, 200),                                      
   names.arg = c("masculino","feminino")
@@ -30,7 +30,7 @@ barplot(
 fi.coma,                                               
   main = "Coma",      
   # xlab = "Sex",                                         
-  ylab = "FrequÃªncias Relativas",                        
+  ylab = "Frequencias Relativas",                        
   col = 2:4,                                            
   names.arg = c("Nao","Sim")
 )   
@@ -91,7 +91,7 @@ barplot(
   ni.dgn,                                               
   main = " diagnostico com niveis",      
   # xlab = "Sex",                                         
-  ylab = "FrequÃªncias absolutas",                        
+  ylab = "Frequencias absolutas",                        
   col = 2:5,                                            
   #ylim = c(0, 200),                                      
   names.arg = names(StrokeAfterAVC$dgn)
@@ -104,9 +104,41 @@ barplot(
 
 
 
-#1 (F)
+#1 (h) 
+num_classes <- ceiling(log2(length(Stroke2$age)) + 1)
 
-#regra de Sturges
-n <- length(Stroke2$age)
-k <- 1 + 3.322 * log10(n)
-k <- ceiling(k)  
+hist(Stroke2$age, breaks = num_classes, main = "Histograma de Idade", xlab = "Idade", ylab = "Frequência", col = "lightblue", border = "black")
+
+
+##OU
+
+
+(n <- length(Stroke2$age))
+# Nº de Classes:
+(k <- trunc(1 + log(n)/log(2)))
+# Amplitude das Classes:
+(h <- (max(Stroke2$age) - min(Stroke2$age)) / k)
+
+
+(idade.min <- min(Stroke2$age))
+(idade.max <- idade.min + h * k)
+
+(idade.cortes <- seq(idade.min, idade.max, by = h))
+
+(idade.classes <- cut(
+  Stroke2$age,
+  breaks = idade.cortes,
+  right = FALSE,
+  include.lowest = TRUE
+))
+
+hist(Stroke2$age, breaks = idade.cortes, col = "lightblue", xlab = "Idade", ylab = "Frequência", main = "Histograma de Idades")
+
+
+
+
+
+
+
+#1 (I)
+
