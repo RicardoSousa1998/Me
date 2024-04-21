@@ -1,6 +1,6 @@
 #'*RESUMO*
 
-#Para ver info usar ?comando exmplo = ?c()
+#Para ver info usar ?comando exemplo = ?c()
 
 
 #Fractions 
@@ -12,7 +12,7 @@ fractions(0.91176470588)
 #Qualitativos Nominal :a ordem das categorias não tem significado
 #Qualitativos Ordinal : ha uma ordem natural das categorias
 #Quantitativos Discreta :  os valores podem ordenar-se, mas entre dois valores consecutivos nao pode existir um valor intermedio
-#Quantitativas Contınua:pode tomar qualquer valor num certo intervalo (mediçoes)
+#Quantitativas Contınua: pode tomar qualquer valor num certo intervalo (mediçoes)
 
 #Vector -> c()
 genero <- c("feminino", "masculino")
@@ -141,39 +141,144 @@ print(tabela_preco)
 H= (max(xi)-min(xi))/k
 
 
+#Classes como intervalos semiabertos, abertos a esquerda e fechados a direita:
+#c1 =]b0; b1] com b1 = b0 + h
+#▶ c2 =]b1; b2] com b2 = b1 + h
+#▶ c3 =]b2; b3] com b3 = b2 + h
+#▶ c4 =]b3; b4] com b4 = b3 + h
+#▶ ck =]bk−1; bk] com bk = bk−1 + h
+#'Se o extremo esquerdo do primeiro intervalo for o mınimo dos dados entao o
+#primeiro intervalo da tabela de frequencias e fechado a esquerda e a direita:
+#'  c1 = [b0; b1] com b0 = min(xi)
+
+#'  Classes como intervalos semiabertos, fechados `a esquerda e abertos `a direita:
+#'▶ c1 = [b0; b1[ com b1 = b0 + h
+#'▶ c2 = [b1; b2[ com b2 = b1 + h
+#'▶ c3 = [b2; b3[ com b3 = b2 + h
+#'▶ c4 = [b3; b4[ com b4 = b3 + h
+#'▶ ck = [bk−1; bk[ com bk = bk−1 + h
+#'Se o extremo direito do ultimo intervalo for o maximo dos dados entao o ultimo
+#'intervalo da tabela de frequencias e fechado a esquerda e a direita:
+#'ck = [bk−1; bk] com bk = max(xi)
+
+
+
+#'*GRAFICOS*
+#'
+#'Barras − para representar graficamente dados qualitativos ou quantitativos discretos
+#'Diagramas Circulares − muito usados para representar graficamente dados qualitativos, mas tambem podem ser usados para representar dados quantitativos discretos
+#'Histograma − para representar graficamente dados quantitativos agrupadosem classes, principalmente os dados quantitativos contınuos.
+
+
+#'*Barras*
+
+
+##### variável: FCVC #####
+# Se come habitualmente vegetais nas refeições: 
+#        1= Nunca, 2=As vezes, 3=Sempre
+
+(ni.FCVC <- table(obesidade$FCVC)) # frequências absolutas
+
+#gráfico de barras das frequências absolutas
+barplot(ni.FCVC, main="Se come habitualmente vegetais nas refeições", 
+        xlab="FCVC", ylab="Frequências absolutas", 
+        col=3:5, ylim=c(0,1200), names.arg=c("Nunca", "Às vezes", "Sempre"))
+
+
+# variável CH2O
+
+(ni.CH2O <- table(obesidade$CH2O))          # frequências absolutas
+(fi.CH2O <- round(prop.table(ni.CH2O),4))   # frequências relativas
+
+#gráfico de barras das frequências relativas
+barplot(fi.CH2O, 
+        main="Quantidade de água que bebe diariamente",
+        xlab="CH2O", 
+        ylab="Frequências relativas", 
+        col=13:15, ylim=c(0,0.6), 
+        names.arg=c("< 1 litro", "1 - 2 litros", "> 2 litros"))
 
 
 
 
+#'*Circular*
+
+#################
+# variável Género
+
+(ni.G <- table(obesidade$Genero))     # frequências absolutas
+(fi.G <- round(prop.table(ni.G),4))   # frequências relativas
+
+pie(ni.G, labels=paste(fi.G*100, "%"), 
+    col=c("yellow", "lightblue"), 
+    main="Género")
+
+legend("topleft", 
+       legend=names(ni.G), 
+       fill=c("yellow", "lightblue"),
+       cex = 0.7)
+
+
+#'*hISTOGRAMA*
 
 
 
+#'# variável estatística: Idade
+
+# mínimo e máximo dos dados
+min(obesidade$Idade)
+max(obesidade$Idade)
+
+k <- 8   # 8 classes
+h <- 6   # amplitude 6 anos
+
+# mínimo e máximo das classes
+valor.min <- 14   # primeira classe a começar nos 14 anos
+(valor.max <- valor.min + h*k)
+
+#extremos das classes
+(cortes <- seq(valor.min, valor.max, by=h))
+
+# intervalos abertos à esquerda e fechados à direita
+# como o mínimo dos dados = ao primeiro valor da primeira classe,
+# a primeira classe tem de ser fechada dos dois lados
+
+# histograma -> eixo dos yy -> frequências absolutas
+hist(obesidade$Idade, breaks=cortes, right=TRUE, include.lowest=TRUE,
+     freq=TRUE,
+     main="Histograma",
+     xlab="Idade",
+     ylab="frequências absolutas",
+     col=2,
+     xlim=c(0,70),
+     ylim=c(0,1200),
+     xaxt="n")                  # para poder definir o eixo dos xx como pretendermos
+axis(side=1, at=c(0,cortes,70))  # definir os valores para o eixo dos xx igual às classes
+
+
+# INICIO NOTA ------------------------------------------
+# NOTA: caso fosse necessário saber qual o ni de cada classe para 
+#      colocar no ylim, fariamos:
+(classes <- cut(obesidade$Idade, breaks=cortes, right=TRUE, include.lowest=TRUE))
+
+# tabela de frequências
+(ni.f <- table(classes))                # frexquências absolutas
+
+# Como o maior ni é 1028, o limite do eixo dos yy foi 
+# escolhido entre 0 e 200
+# FIM NOTA -----------------------------------------
 
 
 
+#'*Medidas de localização*
 
+#'*Central*
+#'moda
+#'Média
+#'Meaida
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#'*Nao Central*
+#'Quantis
 
 
 ###verificar isto
