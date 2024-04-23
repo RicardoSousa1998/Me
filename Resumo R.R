@@ -281,6 +281,26 @@ axis(side=1, at=c(0,cortes,70))  # definir os valores para o eixo dos xx igual �
 #'Quantis
 
 
+
+
+#'*Derivadas*
+
+# Instalar o pacote Deriv
+install.packages("Deriv")
+
+# Carregar o pacote Deriv
+library(Deriv)
+
+f <- function(x) (x^2)/2 + (1/3)
+
+# Calcular a derivada de f em relação a x
+f_prime <- Deriv(f, "x")
+
+# Mostrar a função derivada
+f_prime
+
+
+
 ###verificar isto
 library(ggplot2)
 a <- data.frame(x,p_x) #cria um dataframe para usar ggplot
