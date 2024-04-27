@@ -3,12 +3,14 @@
 #Para ver info usar ?comando exemplo = ?c()
 
 
-#Fractions 
+#'*Fractions*
+# Fractions ####
 
 library(MASS)
 fractions(0.91176470588)
 
 #'*VARIAVEIS* 
+#Variaveis ####
 #Qualitativos Nominal :a ordem das categorias não tem significado
 #Qualitativos Ordinal : ha uma ordem natural das categorias
 #Quantitativos Discreta :  os valores podem ordenar-se, mas entre dois valores consecutivos nao pode existir um valor intermedio
@@ -23,6 +25,7 @@ genero <- c("feminino", "masculino")
 tabela <- data.frame(genero = genero,idade=c(20,18))
 
 #'*FICHEIROS* 
+#Ficheiros ####
 #'*Import*
 #'**
 
@@ -36,6 +39,7 @@ tabela <- data.frame(genero = genero,idade=c(20,18))
 #folhas de cálculo -> write.csv(dados,file="csv")
 
 #'*TABELAS*
+#Tabelas ####
 
 dados <- data.frame(
   i = 1:10,
@@ -73,7 +77,19 @@ dados[,c("deita","ferro")]  #variaveis dieta e ferro
 dados[dados$dieta=="sim",] #where dieta = sim
 dados[dados$suplementos>3,] #where suplementos >3
 
+
+#'*Vetor*
+#Vector ####
+
+dados$dieta #cada var é um vetor
+v<c(15,14,7,8) #criar um vetor
+
+
+leght(dados$deita) #tamanho do vetor 
+
+
 #'*operadores lógicos no R:*
+#Operadores lógicos ####
 # igual : == 
 # diferente: ! = 
 # maior: > 
@@ -84,13 +100,6 @@ dados[dados$suplementos>3,] #where suplementos >3
 # ou: |
 # e: &
 
-#'*Vetor*
-
-dados$dieta #cada var é um vetor
-v<c(15,14,7,8) #criar um vetor
-
-
-leght(dados$deita) #tamanho do vetor 
 
 
 #'*NA VALUES*
@@ -105,6 +114,7 @@ dados3<- na.omit(dados2) #Retirar linhas com u ou mais na
 
 
 #'*Tabelas de frequencias*
+#Tabelas de frequencias ####
 
 
 DescTools::Freq(obesidade$NCP)
@@ -129,6 +139,7 @@ DescTools::Freq(obesidade$NCP)
 print(tabela_preco)
 
 #'*Classes (quantitativas contınuas)*
+#Classes (quantitativas contınuas) ####
 
 #Regra de Sturges
 
@@ -164,16 +175,18 @@ H= (max(xi)-min(xi))/k
 
 
 #'*GRAFICOS*
-#'
+#Graficos####
+#
 #'Barras − para representar graficamente dados qualitativos ou quantitativos discretos
 #'Diagramas Circulares − muito usados para representar graficamente dados qualitativos, mas tambem podem ser usados para representar dados quantitativos discretos
-#'Histograma − para representar graficamente dados quantitativos agrupadosem classes, principalmente os dados quantitativos contınuos.
+#'Histograma − para representar graficamente dados quantitativos agrupado sem classes, principalmente os dados quantitativos contınuos.
 
 
 #'*Barras*
+#Barras####
 
 
-##### variável: FCVC #####
+##### variável: FCVC 
 # Se come habitualmente vegetais nas refeições: 
 #        1= Nunca, 2=As vezes, 3=Sempre
 
@@ -202,8 +215,8 @@ barplot(fi.CH2O,
 
 
 #'*Circular*
+#Circular####
 
-#################
 # variável Género
 
 (ni.G <- table(obesidade$Genero))     # frequências absolutas
@@ -220,6 +233,7 @@ legend("topleft",
 
 
 #'*hISTOGRAMA*
+#Histograma ####
 
 
 
@@ -256,7 +270,7 @@ hist(obesidade$Idade, breaks=cortes, right=TRUE, include.lowest=TRUE,
 axis(side=1, at=c(0,cortes,70))  # definir os valores para o eixo dos xx igual às classes
 
 
-# INICIO NOTA ------------------------------------------
+# INICIO NOTA 
 # NOTA: caso fosse necessário saber qual o ni de cada classe para 
 #      colocar no ylim, fariamos:
 (classes <- cut(obesidade$Idade, breaks=cortes, right=TRUE, include.lowest=TRUE))
@@ -266,24 +280,88 @@ axis(side=1, at=c(0,cortes,70))  # definir os valores para o eixo dos xx igual �
 
 # Como o maior ni é 1028, o limite do eixo dos yy foi 
 # escolhido entre 0 e 200
-# FIM NOTA -----------------------------------------
+# FIM NOTA 
 
 
 
 #'*Medidas de localização*
-
+#Medidas de localização ####
+#Variáveis Qualitativas: Só se faz a Moda
+  
 #'*Central*
-#'moda
-#'Média
-#'Meaida
+#'
+#'*moda*
+# Moda ####
+
+#'Para dados não agrupados, a moda define-se como o valor mais frequente.
+#'Para dados agrupados em classes (todas as classes com a mesma amplitude),a classe com maior frequencia diz-se a classe modal.
+#'Um conjunto de dados pode não ter moda e diz-se amodal.
+#'Um conjunto de dados pode ter mais que uma moda. Isto acontece quando
+#'ha dois ou mais valores que tem a maior frequencia e diz-se
+#'bimodal se tem duas modas;
+#'multimodal ou plurimodal se tem mais do que duas modas.
+
+DescTools::Mode(obesidade$Idade)
+
+#'*Média*
+#Media ####
+
+mean(obesidade$Idade)
+
+#'*Mediana*
+#Mediana ####
+median(obesidade$Idade, type = 2)
+
+
+
+
 
 #'*Nao Central*
-#'Quantis
+#'*Quantis*
+#Quantis ####
+
+#' 1 quartil = Q1 = Q0.25
+#' 2 quartil = Q2 = Q0.50 = mediana
+#' 3 quartil = Q3 = Q0.75
+
+quantile(obesidade$Idade,prob = c(0.25, 0.50, 0.75),type = 2)
+
+#'*Diagrama de Extremos e quartis*
+#Diagrama de Extremos e quartis ####
+# nível de ferro
+boxplot(dados$ferro, col=4, xlab="nível de ferro", 
+        horizontal=TRUE, range=0) # sem indicação de outliers
+boxplot(dados$ferro, col=4, xlab="nível de ferro", 
+        horizontal=TRUE, range=1.5) # indicação de outliers a partir dos moderados
+boxplot(dados$ferro, col=4, xlab="nível de ferro", 
+        horizontal=TRUE, range=3) # indicação de outliers a partir dos severos
+# só há outliers moderados
+
+verOut <- boxplot(dados$ferro, col=4, xlab="nível de ferro", 
+                  horizontal=TRUE, range=1.5)
+verOut$out  #outlier moderado
+
+
+#'*Medidas de dispersão absoluta*
+
+#'*amplitude total*
+#Amplitude total ####
+max(dados$suplementos)-min(dados$suplementos)
+#'*amplitude interquartil*
+#Amplitude interquartil ####
+IQR(dados$suplementos)
+#'*variância*
+#variância ####
+var(dados$suplementos)
+#'*desvio padrão*
+#Desvio padrão ####
+sd(dados$suplementos)
 
 
 
 
 #'*Derivadas*
+#Derivadas ####
 
 # Instalar o pacote Deriv
 install.packages("Deriv")
@@ -301,10 +379,4 @@ f_prime
 
 
 
-###verificar isto
-library(ggplot2)
-a <- data.frame(x,p_x) #cria um dataframe para usar ggplot
 
-ggplot(a, aes(x=x, y=p_x)) + geom_bar(stat="identity",fill="steelblue")+
-  ggtitle('Distribuição Binomial - Sangue Tipo A')+
-  geom_text(aes(label=p_x), vjust=1.6, color="white", size=3.5)
