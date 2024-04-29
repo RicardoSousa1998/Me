@@ -162,7 +162,7 @@ H= (max(xi)-min(xi))/k
 #primeiro intervalo da tabela de frequencias e fechado a esquerda e a direita:
 #'  c1 = [b0; b1] com b0 = min(xi)
 
-#'  Classes como intervalos semiabertos, fechados `a esquerda e abertos `a direita:
+#'  Classes como intervalos semiabertos, fechados a esquerda e abertos a direita:
 #'▶ c1 = [b0; b1[ com b1 = b0 + h
 #'▶ c2 = [b1; b2[ com b2 = b1 + h
 #'▶ c3 = [b2; b3[ com b3 = b2 + h
