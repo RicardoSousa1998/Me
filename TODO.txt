@@ -1,0 +1,5 @@
+TODO
+[ ] Rever Cap1 para meter no resumo
+[ ] Testes Modelos
+[ ] Meter distribuiços no resumo resumo
+[ ] Rezar 3 ave marias 
