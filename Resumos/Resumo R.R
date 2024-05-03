@@ -360,6 +360,52 @@ sd(dados$suplementos)
 
 
 
+
+#'*Distribuições*
+#Distribuições ####
+
+
+
+#'*Binomial*
+#Binomial  ####
+
+#X~B(n,p)  
+#f(x)=P(X=x) =dbinom (x,n,p)
+#F(x)=P(X≤x)= pbinom (x,n,p)
+#F(k)=prob<=>P(X≤k)=prob<=>k=F^(-1) (prob)= qbinom(prob,n,p)
+
+
+#'*Poisson*
+#Poisson  ####
+#X~P[λ]
+#f(x)=P(X=x)= dpois (x,λ)
+#F(x)=P(X≤x)= ppois (x,λ)
+#F(k)=prob<=>P(X≤k)=prob<=>k=F^(-1) (prob)= qpois(prob,λ)
+
+
+#'*Exponencial *
+#Exponencial   ####
+#X~Exp(θ)
+#f(x)=P(X=x)= dunif (x,a,b)
+#F(x)=P(X≤x)  ou P(X<x)= punif (x,a,b) = (x-a)/(b-a)
+#F(k)=prob<=>P(X≤k)=prob<=>k=F^(-1) (prob)= qunif(prob,a,b)
+
+#'*Uniforme Continua *
+#Uniforme Continua   ####
+#X~U(a,b),Dx=[a,b]
+#f(x)=P(X=x)= dexp (x,1/θ)
+#F(x)=P(X≤x)  ou P(X<x)= pexp (x,1/θ )= 1-e^(-x/θ),x≥0
+#F(k)=prob<=>P(X≤k)=prob<=>k=F^(-1) (prob)= qexp(prob,1/θ)
+
+#'*NORMAL*
+#NORMAL ####
+#f(x)=P(X=x)= dnorm (x,μ,σ)
+#F(x)=P(X≤x)  ou P(X<x)= pnorm (x,μ,σ)  
+#F(k)=prob<=>P(X≤k)=prob<=>k=F^(-1) (prob)= qnorm(prob,μ,σ)
+
+#Normal Reduzida é so nao meter o μ,σ
+
+
 #'*Derivadas*
 #Derivadas ####
 

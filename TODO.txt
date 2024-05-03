@@ -1,5 +1,5 @@
 TODO
-[ ] Rever Cap1 para meter no resumo
+[X] Rever Cap1 para meter no resumo
 [X] Testes  (imprimir & fazer os que faltam)
-[ ] Meter distribuiços no resumo resumo r
+[X] Meter distribuiços no resumo resumo r
 [ ] Rezar 3 ave marias 
