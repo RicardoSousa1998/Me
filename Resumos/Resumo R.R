@@ -425,4 +425,112 @@ f_prime
 
 
 
+#'*V[X] E E[X] VAR DISCRETA*
+#V[X] E E[X] VAR DISCRETA ####
+
+
+
+#f(1) = F(1) = 0.10
+#f(2) = F(2) - F(1) = 0.3
+#f(3) = F(3) - F(2) = 0.3
+#f(4) = F(4) - F(3) = 0.2
+#f(5) = F(5) - F(4) = 0.1
+
+x <- c(1, 2, 3, 4,5)
+f_x <- c(0.10, 0.30, 0.30 ,0.20,0.10)
+
+MediaEx <- function(x, f_x) {
+  sum_result <- sum(x * f_x) #Σ x*f(x)
+  return(sum_result)
+}
+
+result <- MediaEx(x, f_x)
+
+Media2Ex <- function(x, f_x) {
+  sum_result <- sum(x^2 * f_x) #Σ x^2*f(x)
+  return(sum_result)
+}
+
+result2 <- Media2Ex(x, f_x)
+
+vX <-function(x, f_x) {
+  result <- MediaEx(x, f_x)
+  result2 <- Media2Ex(x, f_x)
+  
+  vxResult <- result2 - result^2 #E[X^2] - E^2[X]
+  return(vxResult)
+}
+
+
+
+vxRES <- vX (x, f_x)
+
+
+
+
+
+
+#### Variáveis Aleatórias Contínuas: ####
+
+###### Função Densidade de Probabilidade: ######
+
+# Na função f_densidade_probabilidade, cada ifelse representa:
+## Condição: Ramo conhecido;
+## Verdadeiro: Valor desse ramo;
+## Falso: Novo ifelse com outro ramo, ou 0 caso seja o último ramo conhecido.
+f_densidade_probabilidade <- function (x) {
+  ifelse(
+    "LIMITE_INFERIOR_RAMO_1" <= x & x < "LIMITE_SUPERIOR_RAMO_1",
+    "VALOR_RAMO_1",
+    ifelse(
+      "LIMITE_INFERIOR_RAMO_2" <= x & x < "LIMITE_SUPERIOR_RAMO_2",
+      "VALOR_RAMO_2",
+      0 # SÓ SE FOR O ÚLTIMO RAMO!!
+    )
+  )
+}
+
+# E[X] - Interno:
+ex_continuas <- function (x) {
+  # Corresponde a: x * f(x)
+  f_densidade_probabilidade(x) * x
+}
+
+# E[X^2] - Interno:
+ex2_continuas <- function (x) {
+  # Corresponde a: x^2 * f(x)
+  f_densidade_probabilidade(x) * (x^2)
+}
+
+# Valor E[X]:
+valor_ex_continuas <- function () {
+  # Nas contínuas, o E[X] corresponde à integral
+  # de - infinito a + infinito de x * f(x).
+  integrate(ex_continuas, lower = -Inf, upper = +Inf)$value
+}
+
+# Valor E[X^2]:
+valor_ex2_continuas <- function () {
+  # Nas contínuas, o E[X^2] corresponde à integral
+  # de - infinito a + infinito de x^2 * f(x).
+  integrate(ex2_continuas, lower = -Inf, upper = +Inf)$value
+}
+
+# Valor V[X]:
+valor_vx_continuas <- function () {
+  # Independentemente de ser ou não contínua, o V[X] corresponde
+  # à diferença entre E[X^2] e E^2[X] (os integrais são calculados nos valores
+  # esperados).
+  valor_ex2_continuas() - (valor_ex_continuas()^2)
+}
+
+###### E[X]: ######
+valor_ex_continuas()
+
+###### E[X^2]: ######
+valor_ex2_continuas()
+
+###### V[X]: ######
+valor_vx_continuas()
+
 
