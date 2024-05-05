@@ -1,4 +1,4 @@
-#1
+#1 0.75
 #a
 #id = quantitativos discreta
 #treat = qualitativos nominal
@@ -9,7 +9,7 @@
 #Amostra 631 pacientes injetados com medicamento ou placebo
 nrow(distonia)
 
-#b
+#b 1.2
 
 (ni.sex <- table(distonia$sex))           # Frequências Absolutas
 (fi.sex <- round(prop.table(ni.sex), 4))  # frequências Relativas
@@ -28,7 +28,7 @@ nrow(distonia)
 #Com base na tabela podemos verificar que a moda é o Feminino (Nº1) logo a afirmação esta correta nesta amostra
 
 
-#c
+#c 1.2
 
 minAge<- min(distonia$age)
 
@@ -42,14 +42,14 @@ hist(distonia$age, breaks=c(minAge,45,60,maxAge), right=FALSE, include.lowest=TR
 axis(side=1, at=c(0,minAge,45,60,maxAge))
 
 
-#Com base no histograma podemos verificar que no intervalo [45,60[  o disturbio ocorre com mais frequecia nesta amostra
+#Com base no histograma podemos verificar que no intervalo [45,60[  o distúrbio ocorre com mais frequecia nesta amostra
 
 
 
 
-#D
+#D 1
 
-?boxplot(twstrs~treat, data=distonia, col=c(2,3,4), ylab="pontuação",names=c("placebo", "5000 botox B", "10000 botox B"), 
+boxplot(twstrs~treat, data=distonia, col=c(2,3,4), ylab="pontuação",names=c("placebo", "5000 botox B", "10000 botox B"), 
         xlab="tratamento", range=1.5 )
 
 #Com base nos diagramas de extremos e quartis podemos verfiicar que nao existe  grande diferença entre a relação das  pontuações e tratamentos,
@@ -57,7 +57,7 @@ axis(side=1, at=c(0,minAge,45,60,maxAge))
 
 
 
-#E
+#E 0.2
 DescTools::Mode(distonia$age) #57
 
 median(distonia$age) # 56
@@ -72,8 +72,8 @@ e1071::skewness(distonia$age) #b1
 
 #2
 
-#a
-
+#a 1
+ 
 
 #f(1) = F(1) = 0.10
 #f(2) = F(2) - F(1) = 0.3
@@ -82,14 +82,14 @@ e1071::skewness(distonia$age) #b1
 #f(5) = F(5) - F(4) = 0.1
 
 
-#b
+#b 1.5
 
 
 #' P(X>=2 | X<=4) <=> P(X>=2 ^ X<=4) / P (X<=4 ) <=> P(X<=2  V X<=4) / F(4) <=> P(X<1  V X<=4) / 0.9
 #' F(4) - F(1) / 0.9 <=>  0.9-0.1 /0.9  <=> 0.8/0.9 = 0.8888
 
 
-#C
+#C 1.5
 
 
 #v[(7-2X)/3] <=> v[7/3  +(- 2/3)X] <=> (-(2/3))^2 * V[X]  <=> 4/9 * V[X] <=> 4/9 * 1.29´<=> 0.5733^2
@@ -104,7 +104,7 @@ e1071::skewness(distonia$age) #b1
 
 
 
-#D
+#D 1.5
 
 #como 1h = 60 pretende-se 
 
@@ -120,7 +120,7 @@ integrate(f, lower=60, upper=80)$value + 0  # 0.0625
 
 
 
-#3 
+#3 1.5
 #X~P(2)
 #X Nº de falhas por ano
 #a
@@ -133,13 +133,15 @@ integrate(f, lower=60, upper=80)$value + 0  # 0.0625
 dpois (3,10)
 
 #B
+# 12 m = 1 ano
 
-#T~Exp()
-
+#T~Exp(12/2)
+#P(T>6 | T>=4)    = P(T>6-4) = P(T>2) = 1 -P(T<=2) = 1-F(2)  =0.7165
+#FALTA DE MEMORIA ^
 
 #C
 # x ~N(300,20)
-#I
+#I 2
 
 
 #P(X<280) = F(280) =pnorm (280,300,20)
@@ -152,13 +154,13 @@ p <- pnorm (280,300,20)
 1-  pbinom (0,7,p)
 
 
-#II
+#II 1
 #P(x<=k) =0.05 = k=F^(-1) (0.05) <=> qnorm (0.05,300,20) = 267.1029
 qnorm (0.05,300,20)
 
 
 
-#III
+#III 1.5
 #B~N(290,O)
 
 
