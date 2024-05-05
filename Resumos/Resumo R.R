@@ -377,7 +377,7 @@ sd(dados$suplementos)
 
 #'*Poisson*
 #Poisson  ####
-#X~P[λ]
+#X~P(λ)
 #f(x)=P(X=x)= dpois (x,λ)
 #F(x)=P(X≤x)= ppois (x,λ)
 #F(k)=prob<=>P(X≤k)=prob<=>k=F^(-1) (prob)= qpois(prob,λ)

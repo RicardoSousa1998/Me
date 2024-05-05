@@ -70,12 +70,12 @@ axis(side=1, at=c(0,min(distonia$age),45,60,max(distonia$age)))
 # diagrama de extremos e quartis
 
 # com indicação de outliers a partir dos moderados
-boxplot(twstrs~treat, data=distonia, col=c("green", "pink", "red"), ylab="pontuação atribuída aos sintomas",
-        names=c("placebo", "5000 botox B", "10000 botox B"), xlab="tratamento", range=1.5)
+boxplot(twstrs~treat, data=distonia, col=c(2,3,4), ylab="pontuação",names=c("placebo", "5000 botox B", "10000 botox B"), 
+        xlab="tratamento", range=1.5)
 
 # com indicação de outliers a partir dos severos
-boxplot(twstrs~treat, data=distonia, col=c("green", "pink", "red"), ylab="pontuação atribuída aos sintomas",
-        names=c("placebo", "5000 botox B", "10000 botox B"), xlab="tratamento", range=3)
+boxplot(twstrs~treat, data=distonia, col=c(2,3,4), ylab="pontuação",names=c("placebo", "5000 botox B", "10000 botox B"), 
+        xlab="tratamento", range=3)
 
 # outliers
 verOut <- boxplot(twstrs~treat, data=distonia, range=1.5)
