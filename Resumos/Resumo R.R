@@ -557,3 +557,13 @@ f_prime <- Deriv(f, "x")
 
 # Mostrar a função derivada
 f_prime
+
+
+#'*integrate*
+#integrate####
+
+f <- function(y) {
+  (1/40)-(y/3200)
+}
+
+integrate(f, lower=60, upper=80)$value + 0  # 0.0625
