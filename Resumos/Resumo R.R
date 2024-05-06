@@ -406,28 +406,9 @@ sd(dados$suplementos)
 #Normal Reduzida é so nao meter o μ,σ
 
 
-#'*Derivadas*
-#Derivadas ####
-
-# Instalar o pacote Deriv
-install.packages("Deriv")
-
-# Carregar o pacote Deriv
-library(Deriv)
-
-f <- function(x) (x^2)/2 + (1/3)
-
-# Calcular a derivada de f em relação a x
-f_prime <- Deriv(f, "x")
-
-# Mostrar a função derivada
-f_prime
-
-
 
 #'*V[X] E E[X] VAR DISCRETA*
 #V[X] E E[X] VAR DISCRETA ####
-
 
 
 #f(1) = F(1) = 0.10
@@ -534,3 +515,45 @@ valor_ex2_continuas()
 valor_vx_continuas()
 
 
+
+
+#'*Primitivas*
+#Primitivas ####
+
+#P(x^k) = (n^(k+1)) / k+1
+#P(k) = kx
+
+
+
+# Instalar o pacote Ryacas0 se ainda não estiver instalado
+if (!require(Ryacas0)) install.packages("Ryacas0")
+
+# Carregar o pacote Ryacas0
+library(Ryacas0)
+
+x <- Sym("x")  # Define 'x' como uma variável simbólica
+expr <- Integrate(x, x)  # Calcula a integral de x com relação a x
+
+expr
+
+
+
+
+
+
+#'*Derivadas*
+#Derivadas ####
+
+# Instalar o pacote Deriv se ainda não estiver instalado
+if (!require(Deriv)) install.packages("Deriv")
+
+# Carregar o pacote Deriv
+library(Deriv)
+
+f <- function(x) (x^2)/2 + (1/3)
+
+# Calcular a derivada de f em relação a x
+f_prime <- Deriv(f, "x")
+
+# Mostrar a função derivada
+f_prime
