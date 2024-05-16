@@ -631,6 +631,11 @@ BSDA::z.test()
 # σ Desconhecido.
 # D.A.: T = ((x̅ - μ) / (s / sqrt(n))) ~ t(n-1)
 # I.C.: ] x̅ - (t_(1 - (α/2)); n-1) * (s / sqrt(n)) , x̅ + (t_(1 - (α/2)); n-1) * (s / sqrt(n)) [
+A<-#Valor Media Amostra = x̅
+B<-#Media população = μ
+C<-#Desvio padrão Amostral = σ
+D<-#Tamanho Amostra = n
+T <-(A - B) / (C / sqrt(D)) # ~ t(D-1)
 t.test()
 
 # População Qualquer;
