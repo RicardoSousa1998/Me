@@ -574,16 +574,43 @@ integrate(f, lower=60, upper=80)$value + 0  # 0.0625
 
 
 
-
-
-
-
-
 ###########################
 ######### TESTE 2 #########
 ###########################
 
-#### Distribuições Amostrais, Intervalos de COnfiança e Testes de Hipóteses Paramétricos ####
+
+
+
+
+#'*Distribuições Teste2*
+#Distribuições Teste 2####
+
+
+#'*Qui-Quadrado*
+#Qui-Quadrado
+#X~x^2(n)
+#f(x)=P(X=X) = dchisq(x,n)
+#F(x)=P(X<=x) = pchisq(x,n)
+#F(k)=prob<=>P(X≤k)=prob<=>k=F^(-1) (prob)= qchisq(prob,n)
+
+#'* t de Student*
+# t de Student
+#X~t(n)
+#f(x)=P(X=X) = dt(x,n)
+#F(x)=P(X<=x) =  pt(x,n)
+#F(k)=prob<=>P(X≤k)=prob<=>k=F^(-1) (prob)= qt(prob, n)
+
+
+#'* F de Snedecor*
+# F de Snedecor
+#x ∼ F(m,n) 
+#f(x)=P(X=X) = df(x, m, n)
+#F(x)=P(X<=x) =  pf(x, m, n)
+#F(k)=prob<=>P(X≤k)=prob<=>k=F^(-1) (prob)= qf(prob, m, n)
+
+
+#'*Distribuições Amostrais, Intervalos de Confiança e Testes de Hipóteses Paramétricos*
+#### Distribuições Amostrais, Intervalos de Confiança e Testes de Hipóteses Paramétricos ####
 
 ###### Para a Média: ######
 
@@ -595,7 +622,7 @@ A<-#Valor Media Amostra = x̅
 B<-#Media população = μ
 C<-#Desvio padrão População = σ
 D<-#Tamanho Amostra = n
-z <-(A - B) / (C / sqrt(D))
+z <-(A - B) / (C / sqrt(D)) 
 
 # I.C.: ] x̅ - (z_(1 - (α/2))) * (σ / sqrt(n)) , x̅ + (z_(1 - (α/2))) * (σ / sqrt(n)) [
 BSDA::z.test()
