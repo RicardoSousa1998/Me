@@ -642,6 +642,12 @@ t.test()
 # σ Conhecido;
 # n >= 30.
 # D.A.: Z = ((x̅ - μ) / (σ / sqrt(n))) ~ N(0, 1)
+A<-#Valor Media Amostra = x̅
+B<-#Media população = μ
+C<-#Desvio padrão População = σ
+D<-#Tamanho Amostra = n
+z <-(A - B) / (C / sqrt(D)) 
+  
 # I.C.: ] x̅ - (z_(1 - (α/2))) * (σ / sqrt(n)) , x̅ + (z_(1 - (α/2))) * (σ / sqrt(n)) [
 BSDA::z.test()
 
@@ -649,6 +655,11 @@ BSDA::z.test()
 # σ Desconhecido;
 # n >= 30.
 # D.A.: Z = ((x̅ - μ) / (s / sqrt(n))) ~ N(0, 1)
+A<-#Valor Media Amostra = x̅
+B<-#Media população = μ
+C<-#Desvio padrão Amostra = s
+D<-#Tamanho Amostra = n
+z <-(A - B) / (C / sqrt(D)) 
 # I.C.: ] x̅ - (z_(1 - (α/2))) * (s / sqrt(n)) , x̅ + (z_(1 - (α/2))) * (s / sqrt(n)) [
 BSDA::z.test()
 
@@ -660,6 +671,17 @@ BSDA::z.test()
 # σ1 e σ2 Conhecidos;
 # Amostras Independentes.
 # D.A.: Z = (((x̅1 - x̅2) - (μ1 - μ2)) / sqrt((σ1^2 / n1) + (σ2^2 / n2))) ~ N(0, 1)
+A1 <- #Valor Media Amostra 1   = x̅1 
+A2 <- #Valor Media Amostra 2   = x̅2 
+B1 <- #Media população 1 = μ1
+B2 <- #Media população 1 = μ1
+C1 <- #Desvio padrão População 1 = σ1
+C2 <- #Desvio padrão População 2 = σ2
+D1 <- #Tamanho Amostra 1 = n1
+D2 <- #Tamanho Amostra 1 = n2
+  
+Z<- (((A1 - A2) - (B1-B2)) / sqrt((C1^2 / D1) + (C2^2 / D2)))
+
 # I.C.: ] (x̅1 - x̅2) |-+| z_(1 - (α/2)) * sqrt((σ1^2 / n1) + (σ2^2 / n2))) [
 BSDA::z.test()
 
@@ -669,6 +691,17 @@ BSDA::z.test()
 # Amostras Independentes.
 # D.A.: T = (((x̅1 - x̅2) - (μ1 - μ2)) / sqrt(((1 / n1) + (1 / n2)) * ((((n1 - 1) * s1^2) + ((n2 - 1) * s2^2)) / (n1 + (n2 - 2)))))
 # T ~ t(n1 + (n2 - 2))
+A1 <- #Valor Media Amostra 1   = x̅1 
+A2 <- #Valor Media Amostra 2   = x̅2 
+B1 <- #Media população 1 = μ1
+B2 <- #Media população 1 = μ1
+C1 <- #Desvio padrão Amostra 1 = s1
+C2 <- #Desvio padrão Amostra 2 = s2
+D1 <- #Tamanho Amostra 1 = n1
+D2 <- #Tamanho Amostra 1 = n2
+  
+T<- (((A1 - A2) - (B1 - B2)) / sqrt(((1 / D1) + (1 / D2)) * ((((D1 - 1) * C1^2) + ((D2 - 1) * C2^2)) / (D1 + (D2 - 2)))))
+
 # I.C.: ] (x̅1 - x̅2) |-+| t_(1 - (α/2); n1 + (n2 - 2)) * sqrt(((1 / n1) + (1 / n2)) * ((((n1 - 1) * s1^2) + ((n2 - 1) * s2^2)) / (n1 + (n2 - 2)))) [
 t.test()
 
@@ -677,6 +710,18 @@ t.test()
 # σ1 != σ2;
 # Amostras Independentes.
 # D.A.: T = (((x̅1 - x̅2) - (μ1 - μ2)) / sqrt((s1^2 / n1) + (s2^2 / n2))) ~ t(gl2)
+A1 <- #Valor Media Amostra 1   = x̅1 
+A2 <- #Valor Media Amostra 2   = x̅2 
+B1 <- #Media população 1 = μ1
+B2 <- #Media população 1 = μ1
+C1 <- #Desvio padrão Amostra 1 = s1
+C2 <- #Desvio padrão Amostra 2 = s2
+D1 <- #Tamanho Amostra 1 = n1
+D2 <- #Tamanho Amostra 1 = n2
+
+T<- (((A1 - A2) - (B1 - B2)) / sqrt((C1^2 / D1) + (C2^2 / D2))) ~ t(gl2)
+gl2 ~=~ ((C1^2 / D1) + (C2^2 / D2))^2 / ((C1^4 / (D1^2 * (D1 - 1))) + (C2^4 / (D2^2 * (D2 - 1))))
+  
 # I.C.: ] (x̅1 - x̅2) |-+| t_(1 - (α/2); gl2) * sqrt((s1^2 / n1) + (s2^2 / n2))) [
 t.test()
 ## gl2 ~=~ ((s1^2 / n1) + (s2^2 / n2))^2 / ((s1^4 / (n1^2 * (n1 - 1))) + (s2^4 / (n2^2 * (n2 - 1))))
@@ -687,6 +732,17 @@ t.test()
 # Amostras Independentes;
 # n1 e n2 >= 30.
 # D.A.: Z = (((x̅1 - x̅2) - (μ1 - μ2)) / sqrt((σ1^2 / n1) + (σ2^2 / n2))) ~ N(0, 1)
+
+
+A1 <- #Valor Media Amostra 1   = x̅1 
+A2 <- #Valor Media Amostra 2   = x̅2 
+B1 <- #Media população 1 = μ1
+B2 <- #Media população 1 = μ1
+C1 <- #Desvio padrão População 1 = σ1
+C2 <- #Desvio padrão População 2 = σ2
+D1 <- #Tamanho Amostra 1 = n1
+D2 <- #Tamanho Amostra 1 = n2
+Z<- (((A1 - A2) - (B1 - B2)) / sqrt((C1^2 / D1) + (C2^2 / D2)))
 # I.C.: ] (x̅1 - x̅2) |-+| z_(1 - (α/2)) * sqrt((σ1^2 / n1) + (σ2^2 / n2))) [
 BSDA::z.test()
 
@@ -695,6 +751,16 @@ BSDA::z.test()
 # Amostras Independentes;
 # n1 e n2 >= 30.
 # D.A.: Z = (((x̅1 - x̅2) - (μ1 - μ2)) / sqrt((s1^2 / n1) + (s2^2 / n2))) ~ N(0, 1)
+A1 <- #Valor Media Amostra 1   = x̅1 
+A2 <- #Valor Media Amostra 2   = x̅2 
+B1 <- #Media população 1 = μ1
+B2 <- #Media população 1 = μ1
+C1 <- #Desvio padrão Amostra 1 = s1
+C2 <- #Desvio padrão Amostra 2 = s2
+D1 <- #Tamanho Amostra 1 = n1
+D2 <- #Tamanho Amostra 1 = n2
+Z<- (((A1 - A2) - (B1 - B2)) / sqrt((C1^2 / D1) + (C2^2 / D2)))
+
 # I.C.: ] (x̅1 - x̅2) |-+| z_(1 - (α/2)) * sqrt((s1^2 / n1) + (s2^2 / n2))) [
 BSDA::z.test()
 
