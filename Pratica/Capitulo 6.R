@@ -55,6 +55,7 @@ nsig<- 0.01 #nıvel de significˆancia = α
 r<-0 #numero de parametros estimados = r 
 k<- 6#numero de linhas da tabela de frequencias = k 
 
+#COMO É POISON TEMOS DE FAZER ISTO
 pi=dpois(nunidades,2.1)
 pi[k]<-1-ppois(nunidades[k-1],2.1)
 
