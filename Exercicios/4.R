@@ -105,7 +105,7 @@ while (TRUE)
   }
   
   b <- b + 1
-}
+} <- 
 
 
 ######4 .3
@@ -209,8 +209,6 @@ t.test(
 #quilos com um grau de confianca de 99%?
 
 
-
-
 b<-11
 c<-3 
 
@@ -226,4 +224,123 @@ while (TRUE)
   b <- b + 1
 }
 
+
+
+
+##### 4.5
+
+#Considere uma populacao normal com parametros desconhecidos, de onde se obteve uma amostra aleatoria com 16 observacoes, que permitiu
+#construir o seguinte intervalo de confianca para a media da populacao:
+#]7.05, 12.95[
+
+#Pop
+  #x~N(μ,σ)
+#Amostra
+  #n=16
+
+
+#1. Determine a media amostral.
+
+# x- = (7.05 + 12.95) / 2 = 10 
+
+#2. Sabendo que, com a informacao da amostra, se obteve s = 4, qual o grau de confianca que pode atribuir ao intervalo referido?
+
+#s = 4
+
+# x̅ - (t_(1 - (α/2)); n-1) * (s / sqrt(n))  =  7.05
+alpha<- 1
+c <- 7.05
+
+while (TRUE)
+{
+  Ampliture2 <-  (10 - qt(1-(alpha/2),15) *  (4 / sqrt(16)) )
   
+  if (Ampliture2  <= c ) {
+    break
+  }
+  if (alpha <= 0.01){
+    break
+  }
+  
+  alpha <- alpha - 0.01
+}
+#alpha = 0.01 =  conf  0.99
+
+
+
+
+
+
+#x̅ + (t_(1 - (α/2)); n-1) * (s / sqrt(n))  = 12.95
+alpha<- 1
+c <- 12.95
+
+while (TRUE)
+{
+  Ampliture2 <-  (10 + qt(1-(alpha/2),15) *  (4 / sqrt(16)) )
+  
+  if (Ampliture2  >= c ) {
+    break
+  }
+  if (alpha <= 0.01){
+    break
+  }
+  
+  alpha <- alpha - 0.01
+}  
+#alpha = 0.01 =  conf  0.99
+  
+
+#3 . Suponha que a variancia da populacao e 44. Se pretender construir um
+#intervalo de confianca a 95% para a media da populacao, cuja amplitude nao
+#exceda 3.5, qual devera ser a dimensao da amostra a considerar?
+
+#pop
+  #x~N(μ,sqrt(44) = 6.6333)
+#Amostra
+  #n=16
+  
+#conf = 0.95 <=> alpha = 1-0.95 = 0.05
+
+
+n<-1
+c <- 3.5
+
+while (TRUE)
+{
+  Ampliture <-  (10 +  1.959964 * (6.6333 / sqrt(n))) - (10 -  1.959964 * (6.6333 / sqrt(n))) 
+  
+  if (Ampliture  <= c ) {
+    break
+  }
+
+  
+  n<- n + 1
+} 
+
+#A dimensao da amostra da amostra deve ser maior que 56
+
+
+##### 4.6
+
+#A concentracao ativa de um ingrediente num detergente lıquido
+#e supostamente afetada pelo catalisador usado no processo. O desvio padrao da
+#concentracao ativa e 3 gramas/litro independentemente do catalisador utilizado,
+#sendo o comportamento do processo normal. Foram recolhidas 10 observacoes cada
+#uma com o seu catalisador:
+
+
+catalizador1 <- c(57.9 ,66.2 ,65.4 ,65.2 ,62.6 ,67.6 ,63.7 ,67.2 ,71.0 ,65.4)
+catalizador2 <- c(66.4, 71.7, 70.3, 69.3, 64.8, 69.6, 68.6, 69.4, 65.3, 68.8)
+
+#1 As amostra sao independentes ou emparelhadas?
+
+#R: sao independentes 
+
+#2 Determine um intervalo de confiança a 95% para a diferença de medias dos
+#dados obtidos pelos dois catalisadores. Em media, os dados obtidos pelos
+#dois catalisadores podem ser considerados iguais?
+
+BSDA::z.test(x=catalizador1,sigma.x = sd(catalizador1),y=catalizador2,sigma.y = sd(catalizador2),conf.level = 0.95 )
+#]-5.7411764,-0.6588236[ com 95% conf  os dois catalizadoes nao podem ser  considerados iguais 
+
