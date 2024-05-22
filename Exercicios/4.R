@@ -397,7 +397,7 @@ depois <- c(132, 117, 142, 124 ,116, 130 ,122, 118 ,135, 117)
 
 
 #2  Recorrendo a um intervalo de confianca a 95% para a diferenca media, indique se acha que o programa de reabilitacao foi eficaz.
- t.test(antes, depois, paired = TRUE, conf.level = 0.95)
+ t.test(depois,antes, paired = TRUE, conf.level = 0.95)
 
  
  
@@ -416,37 +416,36 @@ depois <- c(132, 117, 142, 124 ,116, 130 ,122, 118 ,135, 117)
 #indique se a aplicacao da nova protese influenciou o grau de satisfacao dos
 #utentes.
  t.test(depois, antes, paired = TRUE, conf.level = 0.99)
- #Com 99% de confianca, a aplicacao da nova protese influenciou o grau de satisfacao dos utentes
+#Com 99% de confianca, a aplicacao da nova protese influenciou o grau de satisfacao dos utentes
  
  
- ####4.10
+####4.10
  
- #Para comparar a eficiencia de dois metodos de ensino, uma
- #turma de 24 alunos foi dividida aleatoriamente em dois grupos. Cada grupo ´e
- #ensinado de acordo com um metodo diferente. Os resultados no fim do semestre
- #sao os seguintes (numa escala de 0 a 100):
+#Para comparar a eficiencia de dois metodos de ensino, uma
+#turma de 24 alunos foi dividida aleatoriamente em dois grupos. Cada grupo ´e
+#ensinado de acordo com um metodo diferente. Os resultados no fim do semestre
+#sao os seguintes (numa escala de 0 a 100):
  
 # 1.o Grupo: n1 = 13 x̅1 = 74.5 s1^2 = 82.6
 # 2.o Grupo: n2 = 11 x̅2 = 71.8  sum[1,11](x2- x̅2) = 1126 
- #sum[inicial,final] 
+#sum[inicial,final] 
  
- #Supondo que as populacoes sao normais (com variancias iguais), obteve-se o
- #seguinte intervalo de confianca para a diferenca entre os valores esperados das duas
- #populacoes:
+#Supondo que as populacoes sao normais (com variancias iguais), obteve-se o
+#seguinte intervalo de confianca para a diferenca entre os valores esperados das duas
+#populacoes:
 #   ] − 5.635, 11.035[.
 
- #1. Indique qual o grau de confian¸ca utilizado no calculo deste intervalo.
+#1. Indique qual o grau de confian¸ca utilizado no calculo deste intervalo.
 
   
-  #s2^2 =  sum[1,11](x2- x̅2)/n2-1 = 1126/10 = 112.6  
+#s2^2 =  sum[1,11](x2- x̅2)/n2-1 = 1126/10 = 112.6  
 
  
- #] (x̅1 - x̅2) |-+| t_(1 - (α/2); n1 + (n2 - 2)) * sqrt(((1 / n1) + (1 / n2)) * ((((n1 - 1) * s1^2) + ((n2 - 1) * s2^2)) / (n1 + (n2 - 2)))) [
- #] (74.5 - 71.8) -+ t_(1 - ((1-b)/2); 13 + (11 - 2)) * sqrt(((1 / 13) + (1 / 11)) * ((((13) * 82.6) + ((11 - 1) * 112.6)) / (13 + (11 - 2)))) [
+#] (x̅1 - x̅2) |-+| t_(1 - (α/2); n1 + (n2 - 2)) * sqrt(((1 / n1) + (1 / n2)) * ((((n1 - 1) * s1^2) + ((n2 - 1) * s2^2)) / (n1 + (n2 - 2)))) [
+#] (74.5 - 71.8) -+ t_(1 - ((1-b)/2); 13 + (11 - 2)) * sqrt(((1 / 13) + (1 / 11)) * ((((13) * 82.6) + ((11 - 1) * 112.6)) / (13 + (11 - 2)))) [
 
  
- 
- (74.5 - 71.8) + q(1 - (alpha/2), 13 + (11 - 2)) * sqrt(((1 / 13) + (1 / 11)) * ((((13) * 82.6) + ((11 - 1) * 112.6)) / (13 + (11 - 2)))) 
+ #(74.5 - 71.8) + qt(1 - (alpha/2), 13 + (11 - 2)) * sqrt(((1 / 13) + (1 / 11)) * ((((13) * 82.6) + ((11 - 1) * 112.6)) / (13 + (11 - 2))))  = 11.035
  
  
  alpha<- 1
@@ -466,26 +465,155 @@ depois <- c(132, 117, 142, 124 ,116, 130 ,122, 118 ,135, 117)
    alpha <- alpha - 0.01
  }  
  
- #como alpha é 0.05 o conf é 0.95 ou seja 95%
+#como alpha é 0.05 o conf é 0.95 ou seja 95%
  
- #2 Com base num intervalo de confianca a 90% acha que, em media, os metodos
- #de ensino podem ser considerados iguais?
+#2 Com base num intervalo de confianca a 90% acha que, em media, os metodos
+#de ensino podem ser considerados iguais?
    
- # [ = (74.5 - 71.8) + qt(1 - (0.10/2), 13 + (11 - 2)) * sqrt(((1 / 13) + (1 / 11)) * ((((13) * 82.6) + ((11 - 1) * 112.6)) / (13 + (11 - 2))))
- # ] = (74.5 - 71.8) - qt(1 - (0.10/2), 13 + (11 - 2)) * sqrt(((1 / 13) + (1 / 11)) * ((((13) * 82.6) + ((11 - 1) * 112.6)) / (13 + (11 - 2))))
- 
- #]-4.334361 ,9.734361[ 
- # o intervalo de confiança inclui zero, Portanto, em media, os metodos de ensino podem ser considerados iguais com base no intervalo de confiança a 90%(ppt4 slide 76)
+# [ = (74.5 - 71.8) + qt(1 - (0.10/2), 13 + (11 - 2)) * sqrt(((1 / 13) + (1 / 11)) * ((((13) * 82.6) + ((11 - 1) * 112.6)) / (13 + (11 - 2))))
+# ] = (74.5 - 71.8) - qt(1 - (0.10/2), 13 + (11 - 2)) * sqrt(((1 / 13) + (1 / 11)) * ((((13) * 82.6) + ((11 - 1) * 112.6)) / (13 + (11 - 2))))
 
+#]-4.334361 ,9.734361[ 
+# o intervalo de confiança inclui zero, Portanto, em media, os metodos de ensino podem ser considerados iguais com base no intervalo de confiança a 90%(ppt4 slide 76)
+
+#3 Com base num intervalo de confian¸ca a 90% verifique se a suposicao das
+#variancias serem iguais e valida.
+
+
+# I.C.: ] ((1 / f_(1 - (α/2); n1 - 1; n2 - 1)) * (s1^2 / s2^2)) , 
+# I.C.:   ((1 / f_(α/2; n1 - 1; n2 - 1)) * (s1^2 / s2^2)) [ 
+
+# ] ((1 / qf(1 - (0.10/2), 12, 10)) * (82.6 / 112.6)) , ((1 / qf(0.10/2, 12, 10)) * (82.6/ 112.6)) [
+
+#] 0.2518284,2.019802[ 
+#Com 90% de confianca a suposicao das variancias serem iguais e valida pq 1 exite dentro do ic (ppt4  slide 80)
  
- #3 Com base num intervalo de confian¸ca a 90% verifique se a suposicao das
- #variancias serem iguais e valida.
  
  
- # I.C.: ] ((1 / f_(1 - (α/2); n1 - 1; n2 - 1)) * (s1^2 / s2^2)) , 
- # I.C.:   ((1 / f_(α/2; n1 - 1; n2 - 1)) * (s1^2 / s2^2)) [ 
+#### 4.11
  
- # ] ((1 / qf(1 - (0.10/2), 12, 10)) * (82.6 / 112.6)) , ((1 / qf(0.10/2, 12, 10)) * (82.6/ 112.6)) [
+#Duas marcas de comprimidos, um deles contendo aspirina,
+#sao anunciados como fazendo desaparecer a dor de cabeca em tempo recorde.
+#Foram feitas experiencias com cada um deles, tendo-se obtido duas amostras
+#aleatorias independentes, cujos resultados (tempo em minutos) foram os seguintes:
+   
+#Comprimido 1 (com aspirina):
+#   9.6; 9.4; 9.3; 11.2; 11.4; 12.1; 10.4; 9.6; 10.2; 8.8; 13.0
+# Comprimido 2 (sem aspirina):
+#  11.4; 12.1; 10.4; 9.6; 8.5; 9.7; 12.3; 12.4; 10.8; 10.8
  
- #] 0.2518284,2.019802[ 
- #Com 90% de confianca a suposicao das variancias serem iguais e valida pq 1 exite dentro do ic (ppt4  slide 80)
+#Admita que as populacoes sao normais e que os desvios padr˜ao s˜ao iguais.
+
+#1 Construa um intervalo de confianca a 95% para a verdadeira diferenca das
+#medias das respostas aos dois medicamentos. Acha que, em media, as respostas dos dois medicamentos podem ser consideradas iguais?
+Comprimido_1 <- c(9.6, 9.4, 9.3, 11.2, 11.4, 12.1, 10.4, 9.6, 10.2, 8.8, 13.0)
+Comprimido_2 <- c(11.4, 12.1, 10.4, 9.6, 8.5, 9.7, 12.3, 12.4, 10.8, 10.8)
+
+t.test(Comprimido_1,Comprimido_2,paired = FALSE,conf.level = 0.95)
+
+#IC ] 1.5371902 , 0.8462811 [ com 95% de conf podem ser consideradas iguais (inclui o 0 no ic )
+
+
+
+#2 Com base num intervalo de confianca a 95% verifique se a suposicao dos
+#desvios padrao serem iguais e valida.
+
+#'*VERIFICAR*
+var.test(Comprimido_1,Comprimido_2,conf.level=0.95)
+
+#alpha = 1- conf = 0.05
+
+#s1^2 = var(Comprimido_1) = 1.734727
+#s1^2 = var(Comprimido_2) = 1.662222
+
+# I.C.: ] ((1 / qf(1 - (0.05/2),10 ,9)) * (1.734727 / 1.662222)) , 
+# I.C.:   ((1 / qf(0.05/2, 10,9)) * (1.734727 / 1.662222)) [ 
+#]0.2632833 ,3.943798 [ com 95% de conf podem ser consideradas iguais  (inclui o 1 no ic )
+
+
+####4.12 Obtem-se uma amostra de 15 cranios de homens egpcios
+#que viveram por volta de 1850 a.c.. Mede-se a largura maxima de cada cranio,
+#e obtiveram-se da amostra uma media de 134.5 mm e um desvio padrao de 3.5
+#mm (com base em dados de Ancient Races of Thebaid, por Thomson e RandallMaciver ). Suponha que a largura maxima dos cranios tem um comportamento
+#normal. Com esses dados amostrais, construa um intervalo de 95% de confian¸ca
+#para o desvio padrao populacional.
+
+
+
+#Pop
+  #normal
+#Amostra
+  #n=15
+  #x- = 134.5
+  #s = 3.5
+#aplha = 1- conf = 0.05
+
+#] (((n-1) * s^2) / x^2_(1 - (α/2); n-1)) , (((n-1) * s^2) / x^2_(α/2; n-1)) [
+#] (((14) * 3.5^2) / qchisq(1 - (0.05/2), 14)) , (((14) * 3.5^2) / qchisq(0.05/2, 14)) [
+#]6.566114,30.46871[
+#]sqrt(6.566114),sqrt(30.46871)[
+#]2.562443,5.519847[
+
+
+
+####4.13
+#Pretende-se estudar a variabilidade do tempo de espera (em
+#minutos) de clientes num dado banco, onde os clientes entram numa fila unica.
+#Suponha que o tempo de espera segue uma distribuicao normal. Construa um
+#intervalo de 95% de confianca para o desvio padrao populacional sabendo que se
+#recolheu a seguinte amostra:
+
+#(6.5; 6.6; 6.7; 6.8; 7.1; 7.3; 7.4; 7.7; 7.7; 7.7).
+
+amostra <- c(6.5, 6.6, 6.7, 6.8, 7.1, 7.3, 7.4, 7.7, 7.7, 7.7)
+s2<- var(amostra) # s^2 para s = sd(amostra)
+
+n <- length(amostra)
+
+#] (((n-1) * s^2) / x^2_(1 - (α/2); n-1)) , (((n-1) * s^2) / x^2_(α/2; n-1)) [
+# ] ((9 *s2) / qchisq(1 - (0.05/2), 9)) , ((9 * s2) / qchisq(0.05/2, 9)) 
+#]0.1075028, 0.7572982[
+#]sqrt(0.1075028), sqrt(0.7572982)[
+#]0.3278762,0.8702288[
+
+
+####4.14
+#Considere-se a seguinte amostra de uma populacao cuja distribuicao e Normal:
+#  (9; 14; 10; 12; 7; 3; 11; 12).
+#Nestas condicoes, construa o intervalo de confianca a 99% mais adequado para a
+#variancia dessa populacao.
+
+amostra <-c(9, 14, 10, 12, 7, 3, 11, 12)
+
+library(EnvStats)
+EnvStats::varTest(x=amostra,conf.level=0.99)
+#]4.117816, 84.406894 [
+
+####4.15
+
+#Durante uma avaliacao de desempenhos das escolas A e B,
+#sugeriu-se que a escola A tinha uma maior variabilidade que a escola B em termos
+#das notas finais dos alunos. Fizeram-se 16 registos de classificacoes para a escola
+#A e 21 registos de classificacoes para a escola B conduzindo as variancias de 6.62
+#e 3.80, respetivamente. Suponha que as populacoes em estudo tem um comportamento normal. Construa um intervalo de confianca a 90% para a razao das
+#verdadeiras variancias e diga se a variabilidade das escolas pode ser considerada
+#diferente.
+
+
+#pop
+  #A escola
+  #B eSCOLA
+#Amostra
+  #na=16
+  #nb=21
+  #sa^2 = 6.62
+  #sb^2 = 3.80
+
+
+# I.C.: ] ((1 / f_(1 - (α/2); n1 - 1; n2 - 1)) * (s1^2 / s2^2)) , 
+# I.C.:   ((1 / f_(α/2; n1 - 1; n2 - 1)) * (s1^2 / s2^2)) [
+
+# I.C.: ] ((1 / qf(1 - (0.10/2),15,20)) * (6.62 / 3.80)) , 
+# I.C.:   ((1 / qf(0.10/2, 15, 20)) * (6.62 / 3.80)) [
+
+#]0.7906892, 4.054811[ #com 90% as variabilidade nao pode ser considerada diferente.
