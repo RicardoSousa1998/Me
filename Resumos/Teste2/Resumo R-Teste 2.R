@@ -1,5 +1,14 @@
 #'*RESUMO*
 
+library(e1071)
+library(FRACTION)
+library(MASS)
+library(Deriv)
+library(BSDA)
+library(EnvStats)
+library(nortest)
+library(DescTools)
+
 #Para ver info usar ?comando exemplo = ?c()
 
 
@@ -616,7 +625,6 @@ integrate(f, lower=60, upper=80)$value + 0  # 0.0625
 
 # População Normal;
 # σ Conhecido.
- 
 # D.A.: Z = ((x̅ - μ) / (σ / sqrt(n))) ~ N(0, 1)
 A<-#Valor Media Amostra = x̅
 B<-#Media população = μ
@@ -625,18 +633,29 @@ D<-#Tamanho Amostra = n
 z <-(A - B) / (C / sqrt(D)) 
 
 # I.C.: ] x̅ - (z_(1 - (α/2))) * (σ / sqrt(n)) , x̅ + (z_(1 - (α/2))) * (σ / sqrt(n)) [
-BSDA::z.test()
+BSDA::z.test(
+  x = VARIAVEL,                   # Vetor com a amostra
+  sigma.x = DESVIO_PADRAO,        # Desvio Padrão da População  = sd(VARIAVEL)
+  conf.level = GRAU_DE_CONFIANCA  # Grau de Confiança para o teste/intervalo
+)
+
 
 # População Normal;
 # σ Desconhecido.
 # D.A.: T = ((x̅ - μ) / (s / sqrt(n))) ~ t(n-1)
-# I.C.: ] x̅ - (t_(1 - (α/2)); n-1) * (s / sqrt(n)) , x̅ + (t_(1 - (α/2)); n-1) * (s / sqrt(n)) [
 A<-#Valor Media Amostra = x̅
 B<-#Media população = μ
 C<-#Desvio padrão Amostral = σ
 D<-#Tamanho Amostra = n
 T <-(A - B) / (C / sqrt(D)) # ~ t(D-1)
-t.test()
+
+# I.C.: ] x̅ - (t_(1 - (α/2)); n-1) * (s / sqrt(n)) , x̅ + (t_(1 - (α/2)); n-1) * (s / sqrt(n)) [
+t.test(
+  x = VARIAVEL,                   # Vetor com a amostra
+  mu = MEDIA,                     # Média da População = mean(VARIAVEL)
+  conf.level = GRAU_DE_CONFIANCA  # Grau de Confiança para o teste/intervalo
+)
+
 
 # População Qualquer;
 # σ Conhecido;
@@ -649,7 +668,11 @@ D<-#Tamanho Amostra = n
 z <-(A - B) / (C / sqrt(D)) 
   
 # I.C.: ] x̅ - (z_(1 - (α/2))) * (σ / sqrt(n)) , x̅ + (z_(1 - (α/2))) * (σ / sqrt(n)) [
-BSDA::z.test()
+BSDA::z.test(
+  x = VARIAVEL,                   # Vetor com a amostra
+  sigma.x = DESVIO_PADRAO,        # Desvio Padrão da População = sd(VARIAVEL)
+  conf.level = GRAU_DE_CONFIANCA  # Grau de Confiança para o teste/intervalo
+)
 
 # População Qualquer;
 # σ Desconhecido;
@@ -660,8 +683,13 @@ B<-#Media população = μ
 C<-#Desvio padrão Amostra = s
 D<-#Tamanho Amostra = n
 z <-(A - B) / (C / sqrt(D)) 
+
 # I.C.: ] x̅ - (z_(1 - (α/2))) * (s / sqrt(n)) , x̅ + (z_(1 - (α/2))) * (s / sqrt(n)) [
-BSDA::z.test()
+BSDA::z.test(
+  x = VARIAVEL,                   # Vetor com a amostra
+  sigma.x = DESVIO_PADRAO,        # Desvio Padrão da Amostra = sd(VARIAVEL) 
+  conf.level = GRAU_DE_CONFIANCA  # Grau de Confiança para o teste/intervalo
+)
 
 "-------------------------------"
 
@@ -683,7 +711,13 @@ D2 <- #Tamanho Amostra 1 = n2
 Z<- (((A1 - A2) - (B1-B2)) / sqrt((C1^2 / D1) + (C2^2 / D2)))
 
 # I.C.: ] (x̅1 - x̅2) |-+| z_(1 - (α/2)) * sqrt((σ1^2 / n1) + (σ2^2 / n2))) [
-BSDA::z.test()
+BSDA::z.test(
+  x = VARIAVEL_1,                 # Primeira Amostra
+  sigma.x = sd(VARIAVEL_1),       # Desvio Padrão da Amostra 1
+  y = VARIAVEL_2,                 # Segunda Amostra
+  sigma.y = sd(VARIAVEL_2),       # Desvio Padrão da Amostra 2
+  conf.level = GRAU_DE_CONFIANCA  # Grau de Confiança
+)
 
 # Populações Normais;
 # σ1 e σ2 Desconhecidos;
@@ -703,7 +737,13 @@ D2 <- #Tamanho Amostra 1 = n2
 T<- (((A1 - A2) - (B1 - B2)) / sqrt(((1 / D1) + (1 / D2)) * ((((D1 - 1) * C1^2) + ((D2 - 1) * C2^2)) / (D1 + (D2 - 2)))))
 
 # I.C.: ] (x̅1 - x̅2) |-+| t_(1 - (α/2); n1 + (n2 - 2)) * sqrt(((1 / n1) + (1 / n2)) * ((((n1 - 1) * s1^2) + ((n2 - 1) * s2^2)) / (n1 + (n2 - 2)))) [
-t.test()
+t.test(
+  x = VARIAVEL_1,                 # Primeira Amostra
+  y = VARIAVEL_2,                 # Segunda Amostra
+  paired = FALSE,                 # As Amostras são Dependentes?
+  var.equal = TRUE,               # As Variâncias são Iguais?
+  conf.level = GRAU_DE_CONFIANCA  # Grau de Confiança
+)
 
 # Populações Normais;
 # σ1 e σ2 Desconhecidos;
@@ -723,9 +763,15 @@ T<- (((A1 - A2) - (B1 - B2)) / sqrt((C1^2 / D1) + (C2^2 / D2))) ~ t(gl2)
 gl2 ~=~ ((C1^2 / D1) + (C2^2 / D2))^2 / ((C1^4 / (D1^2 * (D1 - 1))) + (C2^4 / (D2^2 * (D2 - 1))))
   
 # I.C.: ] (x̅1 - x̅2) |-+| t_(1 - (α/2); gl2) * sqrt((s1^2 / n1) + (s2^2 / n2))) [
-t.test()
 ## gl2 ~=~ ((s1^2 / n1) + (s2^2 / n2))^2 / ((s1^4 / (n1^2 * (n1 - 1))) + (s2^4 / (n2^2 * (n2 - 1))))
 ## Para gl2: Considera-se o inteiro mais próximo ou faz-se a correção de Welch-Satterthwaite.
+t.test(
+  x = VARIAVEL_1,                 # Primeira Amostra
+  y = VARIAVEL_2,                 # Segunda Amostra
+  paired = FALSE,                 # As Amostras são Dependentes?
+  var.equal = FALSE,              # As Variâncias são Iguais?
+  conf.level = GRAU_DE_CONFIANCA  # Grau de Confiança
+)
 
 # Populações Quaiquer;
 # σ1 e σ2 Conhecidos;
@@ -744,7 +790,13 @@ D1 <- #Tamanho Amostra 1 = n1
 D2 <- #Tamanho Amostra 1 = n2
 Z<- (((A1 - A2) - (B1 - B2)) / sqrt((C1^2 / D1) + (C2^2 / D2)))
 # I.C.: ] (x̅1 - x̅2) |-+| z_(1 - (α/2)) * sqrt((σ1^2 / n1) + (σ2^2 / n2))) [
-BSDA::z.test()
+BSDA::z.test(
+  x = VARIAVEL_1,                 # Primeira Amostra
+  sigma.x = sd(VARIAVEL_1),       # Desvio Padrão da Amostra 1
+  y = VARIAVEL_2,                 # Segunda Amostra
+  sigma.y = sd(VARIAVEL_2),       # Desvio Padrão da Amostra 2
+  conf.level = GRAU_DE_CONFIANCA  # Grau de Confiança
+)
 
 # Populações Quaiquer;
 # σ1 e σ2 Desconhecidos;
@@ -762,7 +814,13 @@ D2 <- #Tamanho Amostra 1 = n2
 Z<- (((A1 - A2) - (B1 - B2)) / sqrt((C1^2 / D1) + (C2^2 / D2)))
 
 # I.C.: ] (x̅1 - x̅2) |-+| z_(1 - (α/2)) * sqrt((s1^2 / n1) + (s2^2 / n2))) [
-BSDA::z.test()
+BSDA::z.test(
+  x = VARIAVEL_1,                 # Primeira Amostra
+  sigma.x = sd(VARIAVEL_1),       # Desvio Padrão da Amostra 1
+  y = VARIAVEL_2,                 # Segunda Amostra
+  sigma.y = sd(VARIAVEL_2),       # Desvio Padrão da Amostra 2
+  conf.level = GRAU_DE_CONFIANCA  # Grau de Confiança
+)
 
 
 "-------------------------------"
@@ -772,7 +830,10 @@ BSDA::z.test()
 # População Normal.
 # D.A.: X^2 = (((n-1) * s^2) / σ^2) ~ X^2(n-1)
 # I.C.: ] (((n-1) * s^2) / x^2_(1 - (α/2); n-1)) , (((n-1) * s^2) / x^2_(α/2; n-1)) [
-EnvStats::varTest()
+EnvStats::varTest(
+  x = VARIAVEL,                   # Amostra
+  conf.level = GRAU_DE_CONFIANCA  # Grau de Confiança
+)
 
 "-------------------------------"
 
@@ -783,7 +844,11 @@ EnvStats::varTest()
 # D.A.: F = ((s1^2 / s2^2) * (σ2^2 / σ1^2)) ~ F(n1 - 1, n2 - 1)
 # I.C.: ] ((1 / f_(1 - (α/2); n1 - 1; n2 - 1)) * (s1^2 / s2^2)) , 
 # I.C.:   ((1 / f_(α/2; n1 - 1; n2 - 1)) * (s1^2 / s2^2)) [
-var.test()
+var.test(
+  x = VARIAVEL_1,                 # Primeira Amostra
+  y = VARIAVEL_2,                 # Segunda Amostra
+  conf.level = GRAU_DE_CONFIANCA  # Grau de Confiança
+)
 
 "-------------------------------"
 
@@ -793,6 +858,13 @@ var.test()
 # D.A.: Z = ((p* - p) / sqrt(pq / n)) ~=~ ((p* - p) / sqrt((p* * q*) / n)) ~ N(0, 1)
 # I.C.: ] p* |-+| z_(1 - (α/2)) * sqrt((p* * q*) / n) [
 BSDA::z.test()
+#ou
+prop.test(
+  x=SUCESSO,
+  n=TAMANHO_AMOSTRA,
+  p=SUCESSO/TAMANHO_AMOSTRA,
+  conf.level = Conf_lvl
+)
 
 "-------------------------------"
 
@@ -805,6 +877,12 @@ BSDA::z.test()
 # D.A.: z ~ N(0, 1)
 # I.C.: ] (p1* - p2*) |-+| z_(1 - (α/2)) * sqrt(((p1* * q1*) / (n1)) + ((p2* * q2*) / (n2))) [
 BSDA::z.test()
+#ou
+prop.test(
+  x=c(SUCESSO1,SUCESSO2),
+  n=c(N1,N2),
+  conf.level = Conf_lvl
+)
 
 "-------------------------------"
 
@@ -825,3 +903,27 @@ nortest::lillie.test()
 # Normal e n < 50:
 # Shapiro Wilk
 shapiro.test()
+
+
+
+
+#### Função para Remover os Outliers de Uma Variável: ####
+
+remover_outliers <- function (VARIAVEL) {
+  boxplot_outliers_aux <- boxplot(
+    VARIAVEL,
+    col = "gold",
+    horizontal = TRUE,
+    main = "Extremos e Quartis - Sem Outliers",
+    xlab = "VARIAVEL",
+    type = 2,
+    range = 1.5
+  )
+  
+  outliers <- boxplot_outliers_aux$out
+  
+  sem_outliers <- VARIAVEL
+  sem_outliers <- sem_outliers[!sem_outliers %in% outliers]
+  
+  return(sem_outliers)
+}
