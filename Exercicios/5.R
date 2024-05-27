@@ -33,9 +33,9 @@ amostra <- c(2100, 2025, 2071, 2067, 2150, 2115, 2064, 2088, 1995, 2095)
 # EX.
 
 #### 1) #####
-#h0 μ1 = 2060
+#h0 μ = 2060
 #vs
-#h1 μ1 =/= 2060
+#h1 μ =/= 2060
 #Teste bilateral
 
 
@@ -53,7 +53,7 @@ BSDA::z.test(
 
 #### 3) #####
 
-#Z = ((mean(amostra) - 2060) / (20 / sqrt(10))) ~ N(0, 1)
+#Z = ((mean(amostra) - 2060) / (20 / sqrt(10)))
 #z = 2.687936 
 #Como z esta dentro da RC  entao a decisao é  rejeitar H0
 
