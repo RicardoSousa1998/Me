@@ -1,5 +1,5 @@
 #'*RESUMO*
-
+options(scipen = 999)
 library(e1071)
 library(FRACTION)
 library(MASS)

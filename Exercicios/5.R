@@ -40,10 +40,9 @@ amostra <- c(2100, 2025, 2071, 2067, 2150, 2115, 2064, 2088, 1995, 2095)
 
 
 #### 2) #####
-
 BSDA::z.test(
-  x = amostra,                   # Vetor com a amostra
-  sigma.x = sd(amostra),        # Desvio Padrão da População  = sd(VARIAVEL)
+  x = amostra,          # Vetor com a amostra
+  sigma.x = sd(amostra), # Desvio Padrão da População  = sd(VARIAVEL)
   conf.level = 0.95      # Grau de Confiança para o teste/intervalo
 )
 
@@ -140,8 +139,30 @@ amostra<- c(1595.1, 1514.4, 1608.8, 1591.7, 1482.5, 1796.1, 1700.1,
 #'* tomar.                                                            *
 "---------------------------"
 
-
+amostra <- c(44.8, 61.4, 50.3, 46.9, 44.7, 64.2, 61.5, 47.3, 46.5, 62.4)
 # EX.
+#H0 µ = 55
+#vs
+#H1 µ =/= 55
+
+#RC ]-INF , -z_(1 - (α/2))) ] U [z_(1 - (α/2))) , +INF [
+# ]-INF ,-qnorm(1-(0.05/2)) ] U [qnorm(1-(0.05/2)) , +INF [
+#]-INF ,-1.959964 ] U [1.959964 , +INF [
+
+#Z = ((mean(amostra) - 55) / (8 / sqrt(10))) = -0.7905694
+#Como z esta fora da RC  entao a decisao é rejeitar H1/aceitar h0
+
+
+# 2 * P(Z >= |-0.7905694 |)  <=>  2 * (1- P(Z<0.7905694))  <=> 2 * 1 - pnorm(0.7905694) <=> 1.214598
+
+
+
+
+
+
+
+#Com base na amostra e para um nıvel de significancia de 5%, o comerciante nao deve reclamar 
+
 
 "----------------------------------------------------------------------"
 
@@ -161,15 +182,31 @@ amostra<- c(1595.1, 1514.4, 1608.8, 1591.7, 1482.5, 1796.1, 1700.1,
 #'*     médio de cobre seja superior ao exigido pelas especificações.  *
 "---------------------------"
 
-
+amostra<-c (23.9, 23.5, 23.8, 23.1, 23.4, 23.6, 23.4, 23.2, 23.6, 23.5)  
 # EX.
 
 #### 1) #####
-
+mediaAmostral<-mean(amostra)
+DpAmostral<-sd(amostra)
 
 
 #### 2) #####
+#H0 µ = 23.3
+#vs
+#H1 µ =/= 23.3
+#Teste bilateral
 
+# T = ((x̅ - μ) / (s / sqrt(n)))  
+# T = ((mediaAmostral-  23.3) / (DpAmostral / sqrt(10)))  
+# T = 2.581989
+# 2 * p(T>|2.581989|) <=>
+ 
+
+test<-t.test(
+  x = amostra,        # Vetor com a amostra
+  mu = mediaAmostral, # Média da População = mean(VARIAVEL)
+  conf.level = 0.99  # Grau de Confiança para o teste/intervalo
+)
 
 
 #### 3) #####
