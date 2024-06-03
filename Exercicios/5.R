@@ -166,7 +166,7 @@ amostra <- c(44.8, 61.4, 50.3, 46.9, 44.7, 64.2, 61.5, 47.3, 46.5, 62.4)
 
 "----------------------------------------------------------------------"
 
-#### Exercicio 5.4 ####
+#### Exercicio 5.4 SKIP NESTA MERDA ####
 
 
 "-------- Enunciado --------"
@@ -196,17 +196,23 @@ DpAmostral<-sd(amostra)
 #H1 µ =/= 23.3
 #Teste bilateral
 
-# T = ((x̅ - μ) / (s / sqrt(n)))  
-# T = ((mediaAmostral-  23.3) / (DpAmostral / sqrt(10)))  
-# T = 2.581989
-# 2 * p(T>|2.581989|) <=>
- 
+alpha<- 0.01
+teste_t <- t.test(amostra,
+                  mu = 23.3,
+                  alternative = "two.sided",
+                  conf.level = 1 - alpha)
 
-test<-t.test(
-  x = amostra,        # Vetor com a amostra
-  mu = mediaAmostral, # Média da População = mean(VARIAVEL)
-  conf.level = 0.99  # Grau de Confiança para o teste/intervalo
-)
+
+#T = ((mediaAmostral - 23.3) / (DpAmostral / sqrt(10)))  = 2.581989
+
+
+
+#RC
+#T = ((mediaAmostral - 23.3) / (DpAmostral / sqrt(10)))  = 2.581989  ou teste_t$statistic
+#]- inf , qt(alpha/2, 10-1)] [qt(1 - alpha/2, 10-1) , +inf[ 
+#]- inf , -3.249836] [3.249836 , +inf[ 
+
+
 
 
 #### 3) #####
