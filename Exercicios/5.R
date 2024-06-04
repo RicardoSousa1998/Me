@@ -44,7 +44,7 @@ BSDA::z.test(
   x = amostra,          # Vetor com a amostra
   sigma.x = sd(amostra), # Desvio Padrão da População  = sd(VARIAVEL)
   conf.level = 0.95      # Grau de Confiança para o teste/intervalo
-)
+  )
 
 #RC ]-INF , -z_(1 - (α/2))) ] U [z_(1 - (α/2))) , +INF [
 # ]-INF ,-qnorm(1-(0.05/2)) ] U [qnorm(1-(0.05/2)) , +INF [

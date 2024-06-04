@@ -635,7 +635,7 @@ z <-(A - B) / (C / sqrt(D))
 # I.C.: ] x̅ - (z_(1 - (α/2))) * (σ / sqrt(n)) , x̅ + (z_(1 - (α/2))) * (σ / sqrt(n)) [
 BSDA::z.test(
   x = VARIAVEL,                   # Vetor com a amostra
-  sigma.x = DESVIO_PADRAO,        # Desvio Padrão da População  = sd(VARIAVEL)
+  sigma.x = DESVIO_PADRAO,        # Desvio Padrão da População
   conf.level = GRAU_DE_CONFIANCA  # Grau de Confiança para o teste/intervalo
 )
 
@@ -652,7 +652,7 @@ T <-(A - B) / (C / sqrt(D)) # ~ t(D-1)
 # I.C.: ] x̅ - (t_(1 - (α/2)); n-1) * (s / sqrt(n)) , x̅ + (t_(1 - (α/2)); n-1) * (s / sqrt(n)) [
 t.test(
   x = VARIAVEL,                   # Vetor com a amostra
-  mu = MEDIA,                     # Média da População = mean(VARIAVEL)
+  mu = MEDIA,                     # Média da População
   conf.level = GRAU_DE_CONFIANCA  # Grau de Confiança para o teste/intervalo
 )
 
@@ -670,7 +670,7 @@ z <-(A - B) / (C / sqrt(D))
 # I.C.: ] x̅ - (z_(1 - (α/2))) * (σ / sqrt(n)) , x̅ + (z_(1 - (α/2))) * (σ / sqrt(n)) [
 BSDA::z.test(
   x = VARIAVEL,                   # Vetor com a amostra
-  sigma.x = DESVIO_PADRAO,        # Desvio Padrão da População = sd(VARIAVEL)
+  sigma.x = DESVIO_PADRAO,        # Desvio Padrão da População 
   conf.level = GRAU_DE_CONFIANCA  # Grau de Confiança para o teste/intervalo
 )
 
