@@ -42,8 +42,9 @@ amostra <- c(2100, 2025, 2071, 2067, 2150, 2115, 2064, 2088, 1995, 2095)
 #### 2) #####
 BSDA::z.test(
   x = amostra,          # Vetor com a amostra
-  sigma.x = sd(amostra), # Desvio Padrão da População  = sd(VARIAVEL)
-  conf.level = 0.95      # Grau de Confiança para o teste/intervalo
+  sigma.x = 20,         # Desvio Padrão da População 
+  mu=2060,
+  alternative = "two.sided",
   )
 
 #RC ]-INF , -z_(1 - (α/2))) ] U [z_(1 - (α/2))) , +INF [
@@ -105,19 +106,39 @@ amostra<- c(1595.1, 1514.4, 1608.8, 1591.7, 1482.5, 1796.1, 1700.1,
 #H1: µ = 1750 (OU SEJA µ < 1800 ?)
 
 
+BSDA::z.test(
+  x = amostra,          # Vetor com a amostra
+  sigma.x = 100,         # Desvio Padrão da População 
+  mu=1800,
+  alternative = "two.sided",
+)
+
+
+
 #Teste Unilateral Esquerdo
 #Z = ((mean(amostra) - 1800) / (100 / sqrt(35))) = -8.87412
-#RC ]-INF , -qnorm(1 - (0.05/2)) ]
-#RC ]-INF , -1.959964 ]
+#RC 
+# ]-INF ,-qnorm(1-(0.05/2)) ] U [qnorm(1-(0.05/2)) , +INF [
+#]-INF ,-1.959964 ] U [1.959964 , +INF [
 #como -8.87412 € RC ent Rejeita-se H0 
 
 #### 2) #####
-#H0:  µ = 1800
+#H0:  µ = 1750
 #vs
-#H1: µ = 1750
+#H1: µ = 1800
 
-#P(Z<=-8.87412 ) <=> pnorm(-8.87412) <=> 3.524426e-19
-#COMO 3.524426e-19 < 0.10 ou seja, valor-p < α ent rejeita-se H0
+BSDA::z.test(
+  x = amostra,          # Vetor com a amostra
+  sigma.x = 100,         # Desvio Padrão da População 
+  mu=1750,
+  alternative = "two.sided",
+)
+
+#Z = ((mean(amostra) - 1750) / (100 / sqrt(35))) = -5.91608
+
+
+#2 * p(z>= |-5.91608|) <=> 2 * (1-pnorm(5.91608)) <=> 2 * 0.000000001648524  = 0.000000003297049
+#COMO 0.000000003297049 < 0.10 ou seja, valor-p < α ent rejeita-se H0
 
 "----------------------------------------------------------------------"
 
@@ -143,23 +164,20 @@ amostra <- c(44.8, 61.4, 50.3, 46.9, 44.7, 64.2, 61.5, 47.3, 46.5, 62.4)
 # EX.
 #H0 µ = 55
 #vs
-#H1 µ =/= 55
+#H1 µ < 55
 
-#RC ]-INF , -z_(1 - (α/2))) ] U [z_(1 - (α/2))) , +INF [
-# ]-INF ,-qnorm(1-(0.05/2)) ] U [qnorm(1-(0.05/2)) , +INF [
-#]-INF ,-1.959964 ] U [1.959964 , +INF [
+
+BSDA::z.test(
+  x = amostra,          # Vetor com a amostra
+  sigma.x = 8,         # Desvio Padrão da População 
+  mu=55,
+  alternative = "less",
+)
 
 #Z = ((mean(amostra) - 55) / (8 / sqrt(10))) = -0.7905694
-#Como z esta fora da RC  entao a decisao é rejeitar H1/aceitar h0
 
-
-# 2 * P(Z >= |-0.7905694 |)  <=>  2 * (1- P(Z<0.7905694))  <=> 2 * 1 - pnorm(0.7905694) <=> 1.214598
-
-
-
-
-
-
+#p-value = (Z<=-0.7905694) = pnorm(-0.7905694) = 0.2145977
+#COMO 0.2145977 > 0.05 ou seja, valor-p > α ent nao se rejeita-se H0
 
 #Com base na amostra e para um nıvel de significancia de 5%, o comerciante nao deve reclamar 
 
