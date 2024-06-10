@@ -67,7 +67,7 @@ BSDA::z.test(
 "----------------------------------------------------------------------"
 
 #### Exercicio 5.2 ####
-
+####'*REFAZER*
 
 "-------- Enunciado --------"
 #'* Um fabricante de cabos indicava que os seus cabos apresentavam    *
@@ -114,8 +114,6 @@ BSDA::z.test(
 )
 
 
-
-#Teste Unilateral Esquerdo
 #Z = ((mean(amostra) - 1800) / (100 / sqrt(35))) = -8.87412
 #RC 
 # ]-INF ,-qnorm(1-(0.05/2)) ] U [qnorm(1-(0.05/2)) , +INF [
@@ -168,8 +166,8 @@ amostra <- c(44.8, 61.4, 50.3, 46.9, 44.7, 64.2, 61.5, 47.3, 46.5, 62.4)
 
 
 BSDA::z.test(
-  x = amostra,          # Vetor com a amostra
-  sigma.x = 8,         # Desvio Padrão da População 
+  x = amostra,          
+  sigma.x = 8,         
   mu=55,
   alternative = "less",
 )
@@ -202,6 +200,10 @@ BSDA::z.test(
 
 amostra<-c (23.9, 23.5, 23.8, 23.1, 23.4, 23.6, 23.4, 23.2, 23.6, 23.5)  
 # EX.
+#pop
+  #X~N(23.3,o)
+#amostra
+  #n=10
 
 #### 1) #####
 mediaAmostral<-mean(amostra)
@@ -209,33 +211,59 @@ DpAmostral<-sd(amostra)
 
 
 #### 2) #####
-#H0 µ = 23.3
+#H0 µ = 23.2
 #vs
-#H1 µ =/= 23.3
+#H1 µ =/= 23.2
 #Teste bilateral
 
-alpha<- 0.01
-teste_t <- t.test(amostra,
-                  mu = 23.3,
-                  alternative = "two.sided",
-                  conf.level = 1 - alpha)
+#tobs = ((x̅ - μ) / (s / sqrt(n))) 
+# tobs = ((mediaAmostral- 23.2) / (DpAmostral/ sqrt(10))) = 3.872983
 
+#]-∞,-t_{1-(α/2);df}[ ∪]t_{1-(α/2);df},+∞[ 
 
-#T = ((mediaAmostral - 23.3) / (DpAmostral / sqrt(10)))  = 2.581989
+#]-∞,-qt(1-(0.01/2),9)[ ∪]qt(1-(0.01/2),9),+∞[ 
+#]-∞,-3.249836[ ∪]3.249836,+∞[ 
+#como 3.872983  € na RC ent  rejeita H0
 
+#P-value 2*P(T>=|Tobs|) = 2 * (1-pt(3.872983,9)) = 0.00377156
 
-
-#RC
-#T = ((mediaAmostral - 23.3) / (DpAmostral / sqrt(10)))  = 2.581989  ou teste_t$statistic
-#]- inf , qt(alpha/2, 10-1)] [qt(1 - alpha/2, 10-1) , +inf[ 
-#]- inf , -3.249836] [3.249836 , +inf[ 
+#COMO 0.00377156 < 0.01 ou seja, valor-p < α ent rejeita-se H0
 
 
 
 
-#### 3) #####
+t.test(
+  x=amostra
+  ,mu=23.2
+  ,alternative = "two.sided"
+)
+
+#### 3) ####
 
 
+#H0 µ <= 23.2
+#vs
+#H1 µ > 23.2
+#Teste direito
+
+#tobs = ((x̅ - μ) / (s / sqrt(n))) 
+# tobs = ((mediaAmostral- 23.2) / (DpAmostral/ sqrt(10))) = 3.872983
+
+#[t_{1-(α/2);df},+∞[ 
+
+#[qt(1-(0.01/2),9),+∞[ 
+#[3.249836,+∞[ 
+#como 3.872983  € na RC ent  rejeita H0
+
+#P-value  P(T>= TOBS) = 1-P(T<TBOS) = 1- ?pt(3.872983,9) = 0.00188578
+#COMO 0.00188578 < 0.01 ou seja, valor-p < α ent rejeita-se H0
+
+
+t.test(
+  x=amostra
+  ,mu=23.2
+  ,alternative = "greater"
+)
 
 "----------------------------------------------------------------------"
 
