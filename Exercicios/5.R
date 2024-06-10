@@ -182,7 +182,7 @@ BSDA::z.test(
 
 "----------------------------------------------------------------------"
 
-#### Exercicio 5.4 SKIP NESTA MERDA ####
+#### Exercicio ####
 
 
 "-------- Enunciado --------"
@@ -332,23 +332,83 @@ t.test(
 #'*     α = 0.10).                                                    *
 "---------------------------"
 
+#pop
+#normal
 
+#amostra
+amostra1<-c( 88.9, 89.2, 87.1, 88.8, 87.5, 92.0,91.9, 87.5, 84.4, 91.0, 84.1, 85.4)
+amostra2<-c(93.0, 88.6, 90.9, 90.2, 99.5, 89.8,93.8, 90.1, 90.3)
+var1<-var(amostra1)
+var2<-var(amostra2)
+n1<- length(amostra1)
+n2<- length(amostra2)
+mean1 <- mean(amostra1)
+mean2 <- mean(amostra2)
 # EX.
 
 #### 1) #####
 
+nivelsig=0.05
+#H0 σ1^2 = σ2^2         σ1^2 - σ2^2 = 0
+#vs               <=> 
+#H1 σ1^2 =|=  σ2^2      σ1^2 -  σ2^2 =/= 0
+#Teste bilateral~
 
+#fobs = var1/var2 * (σ1^2 /σ2^2 )  = var1/var2 * 1 =  0.6573554
+
+
+var.test(x=amostra1,y=amostra2, conf.level = 0.05)
+
+#rc [0 ,f(a/2,n1-1,n2-2)] [f(1-(a/2),n1-1,n2-2,+inf)[
+#  [0 ,qf(0.05/2,n1-1,n2-2)] U [4.70947  +inf)[
+# [0,0.2660538 ] [4.70947 +inf[
+#como 0.6573554  nao € na RC ent nao rejeita H0
+
+
+#valor-p 2x min {P(F<=Fobs),p(F>=Fobs)} = 2* 0.2562376 = 0.5124752
+#P(F<=Fobs) <=> pf(0.6573554,n1-1,n2-2) = 0.2562376
+#P(F>=Fobs) <=> 1-pf(0.6573554,n1-1,n2-2) = 0.7437624
+
+#COMO 0.5124752 > 0.05 ou seja, valor-p > α ent nao se rejeita H0
+
+#Com base nas amostras e para um nıvel de significancia de 5%, ha evidencia
+#estatıstica que as variancias da resistencia das calcas dos dois fornecedores podem
+#ser consideradas iguais. 
 
 #### 2) #####
-
+#Com base nas amostras e para um nıvel de significancia
+#de 5%, a dona da loja deve comprar as calcas ao fornecedor
 
 
 #### 3) #####
-
+#Nenhuma, a decisao mantem-se
 
 
 #### 4) #####
+#H0 µ1 = µ2          µ1 - µ2 = 0 
+#vs           <=> 
+#H1 µ =/= µ2         µ1 - µ2 =/= 0 
+#Teste bilateral
 
+
+# Zobs = (((x̅1 - x̅2) - (μ1 - μ2)) / sqrt((σ1^2 / n1) + (σ2^2 / n2))) ~ N(0, 1)
+# (((mean1-mean2) - 0) / sqrt((8 / n1) + (9 / n2))) = -2.827278
+#Rc ]-inf z(a/2)] u[z(1-(a/2)) , + inf [
+#Rc ]-inf qnorm(0.10/2)] u[qnorm(1-(0.10/2)) , + inf [
+# ]-inf, -1.644854] u[1.644854, + inf [
+#como -2.827278  € na RC ent  rejeita H0
+
+#valor p : 2x p(Z>=|zobs|) = 2 * (1 - pnorm(2.827278)) = 0.004694555
+#COMO 0.004694555 < 0.10 ou seja, valor-p < α ent  rejeita-se H0
+
+BSDA::z.test(
+  x = amostra1,            # Primeira Amostra
+  sigma.x = sqrt(8),       # Desvio Padrão da populaçao 1
+  y = amostra2,            # Segunda Amostra
+  sigma.y = sqrt(9),       # Desvio Padrão da populaçao 2
+  mu=0,
+  alternative = "two.sided"
+)
 
 
 "----------------------------------------------------------------------"
