@@ -435,17 +435,43 @@ BSDA::z.test(
 #'* 2.) Calcule o valor−p associado ao teste realizado na alínea 1.   *
 "---------------------------"
 
-
+amostra1<-c(123, 134, 146, 104, 119, 124, 161,107,  83, 113,  97, 129)
+amostra2<-c(70, 118, 101, 85, 107, 132, 94)
+n1<- length(amostra1)
+n2 <- length(amostra2)
+mean1<- mean(amostra1)
+mean2<- mean(amostra2)
 # EX.
 
 #### 1) #####
+#h0 µ1 = µ2        µ1 - µ2 = 0
+#              <=> 
+#h1 µ1 > µ1        µ1 - µ2 > 0
+#direito
+
+#Tobs = T = (((x̅1 - x̅2) - (μ1 - μ2)) / sqrt(((1 / n1) + (1 / n2)) * ((((n1 - 1) * s1^2) + ((n2 - 1) * s2^2)) / (n1 + (n2 - 2)))))
+#Tobs = ((( mean1- mean2) - (0)) / sqrt(((1 / n1) + (1 / n2)) * ((((n1 - 1) * sd(amostra1)^2) + ((n2 - 1) * sd(amostra2)^2)) / (n1 + (n2 - 2))))) = 1.891436
+#Tobs = 1.891436
+
+#RC [t_(1-\alpha,df),+∞[ 
+#[qt(1-0.01,n1+n2-2), +inf [
+#[2.566934,+inf [ 
+#como 1.891436  nao € na RC ent  nao se  rejeita H0
 
 
-
+t.test(
+  x = amostra1,                 # Primeira Amostra
+  y = amostra2,                 # Segunda Amostra
+  var.equal = TRUE,              # As Variâncias são Iguais?
+  mu=0,
+  alternative = "greater"
+)
 #### 2) #####
+#valor p P(T > Tobs) <=> 1-?pt(1.891436,n1+n2-2) <=> 0.03786509
+#COMO 0.03786509 > 0.01 ou seja, valor-p < α ent  nao se  rejeita-se H0
 
-
-
+1-pt(1.891436,n1+n2-2)
+pt(1.891436,n1+n2-2,lower.tail = FALSE)
 "----------------------------------------------------------------------"
 
 #### Exercicio 5.8 ####
