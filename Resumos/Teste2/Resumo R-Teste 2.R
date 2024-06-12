@@ -927,3 +927,7 @@ remover_outliers <- function (VARIAVEL) {
   
   return(sem_outliers)
 }
+
+
+#▶ se valor-p ≤ α, entao rejeita-se H0
+#▶ se valor-p > α, entao não se rejeita H0

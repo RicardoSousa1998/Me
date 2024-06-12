@@ -285,16 +285,43 @@ t.test(
 #'*     % média de azoto no fertilizante é inferior a 6%.             *
 "---------------------------"
 
+amostra <-c( 6.2, 5.7, 5.8, 5.8, 6.1, 5.9, 6.0, 5.7, 5.9)
+meanamostra <- mean(amostra)
+n<- length(amostra)
 
 # EX.
 
 #### 1) #####
+#pop
+#normal 
+#o = 0.24
+
+#h0 media = 6
+#
+#h1 media < 6
+#unilateral esq
+
+#Zobs = ((x̅ - μ) / (σ / sqrt(n))) <=> (meanamostra - 6) / (0.24 / sqrt(n)) <=> -1.25
+#pvalue = P(Z<= ZOBS) = pnorm(-1.25) <=>0.1056498  ou seja o alpha tem de ser >= 0.1056498
 
 
 
 #### 2) #####
+# pop
+## Normal
+## μ = ?
+## σ = ?
 
-
+#h0  media >=6
+#vs
+#h1 media < 6
+teste<-t.test(
+  x = amostra,                  
+  mu = 6,                     
+  alternative = "less"
+)
+teste$p.value
+#pvalue = 0.06075146 ou seja alpha tem de ser >= 0.06075146
 
 "----------------------------------------------------------------------"
 
@@ -468,7 +495,7 @@ t.test(
 )
 #### 2) #####
 #valor p P(T > Tobs) <=> 1-?pt(1.891436,n1+n2-2) <=> 0.03786509
-#COMO 0.03786509 > 0.01 ou seja, valor-p < α ent  nao se  rejeita-se H0
+#COMO 0.03786509 > 0.01 ou seja, valor-p > α ent  nao se  rejeita-se H0
 
 1-pt(1.891436,n1+n2-2)
 pt(1.891436,n1+n2-2,lower.tail = FALSE)
@@ -497,15 +524,48 @@ pt(1.891436,n1+n2-2,lower.tail = FALSE)
 #'*     mais do que na máquina do fabricante 2?                       *
 "---------------------------"
 
-
+fabricante1  <-c(80, 72, 65, 78, 85)
+fabricante2 <- c( 75, 70, 60, 72, 78)
 # EX.
 
 #### 1) #####
-
+# As amostras apesar de serem de máquinas de fabricantes diferentes,
+# dozem respeito aos tempos dos mesmos operadores. Por este motivo,
+# as amostras são consideradas emparelhadas.
 
 
 #### 2) #####
+#populaçoes
+##normal
 
+#h0  m1<= m2          m1-m2<=0
+#vs             <=>
+#h1 m1>m2             m1-m2>0
+
+
+## Como as populações são normais e os desvios padrões são desconhecidos,
+## é necessário determinar se eles podem ser ou não considerados iguais,
+## para se poder proceder à escolha da D.A. certa.
+
+var.test(
+  x = fabricante1,  # Primeira Amostra
+  y = fabricante2,  # Segunda Amostra
+  conf.level = 0.90      # Grau de Confiança = 1-alpha(nível de significância) 
+)
+## I.C. para as Variâncias: ] 0.1981702 , 8.0872310 [
+
+## Como 1 E I.C., as variâncias podem ser consideradas iguais.
+## Logo:
+
+# D.A.: T = (((x̅1 - x̅2) - (μ1 - μ2)) / sqrt(((1 / n1) + (1 / n2)) * ((((n1 - 1) * s1^2) + ((n2 - 1) * s2^2)) / (n1 + n2 - 2))))
+t.test(
+  x = fabricante1,     # Primeira Amostra
+  y = fabricante2,     # Segunda Amostra
+  paired = TRUE,            # As Amostras são Dependentes?
+  var.equal = TRUE,         # As Variâncias são Iguais?
+  alternative = "greater"
+)
+#COMO 0.00197 < 0.10 ou seja, valor-p < α ent   se  rejeita-se H0
 
 
 "----------------------------------------------------------------------"
@@ -533,15 +593,48 @@ pt(1.891436,n1+n2-2,lower.tail = FALSE)
 #'* 2.) Ao nível de significância de 1% acha que a suspeita do        *
 #'*     diretor faz sentido?                                          *
 "---------------------------"
-
+aparelhoa<-c(12.2,  12.1, 10.55, 13.33, 11.42,10.3, 12.32, 13.27, 11.93, 12.5)
+aparelhob<-c(12.5,  12.2, 10.57, 13.32, 11.47,10.3, 12.36, 13.29, 11.91, 12.61)
+#populaçao
+##normal
 
 # EX.
 
 #### 1) #####
-
+#nao  pq se referem a mesma medida
 
 
 #### 2) #####
+#h0 m1 = m2        m1-m2 =0
+#vs            <=>
+#h1 m1 =|= m2      m1-m2 !=0
+
+#teste bilateral
+
+#como nao sabemos se  σ1 = σ2 
+
+var.test(
+  x= aparelhoa,
+  y=aparelhob,
+  conf.level = 0.99
+)
+#como 1 € no ic Podemos verificar σ1 = σ2  
+
+
+teste<- t.test(
+  x = aparelhoa,                 # Primeira Amostra
+  y = aparelhob,                 # Segunda Amostra
+  paired = TRUE,                 # As Amostras são Dependentes?
+  var.equal = TRUE,              # As Variâncias são Iguais?
+  mu = 0,
+  alternative = "two.sided"
+)
+teste$p.value # =0.07149826
+#como 0.07149826 > 0.01 ou seja, valor-p > α ent nao  se  rejeita-se H0
+#Com base nas amostras e para um nıvel de
+#significancia de 1%, nao ha evidencia estatıstica que a suspeita do diretor faca
+#sentido.
+
 
 
 
@@ -579,9 +672,41 @@ pt(1.891436,n1+n2-2,lower.tail = FALSE)
 #'* Deve-se admitir que as duas dietas têm, em média, o mesmo efeito  *
 #'* na perda de peso? Justifique a resposta considerando α = 0.05.    *
 "---------------------------"
+dieta1<-c( 8.0, 15.2,  6.7, 6.5,  9.1, 8.5, 14.1,  8.9, 10.9,  7.6,
+           9.4,  8.6,  9.4, 6.7, 11.5, 6.8, 10.9,  6.7, 11.0, 10.6,
+           9.8,  6.6, 10.7, 9.4, 13.6, 8.2,  8.0, 12.3, 14.2,  9.1,
+           7.3, 11.3,  6.9, 8.3,  7.2, 7.2, 10.5, 11.1, 14.9, 12.4,
+           7.9,  6.3,  6.2, 6.3,  5.7, 9.0,  9.5,  7.1,  8.0,  6.9 )
 
-
+dieta2 <-c( 4.8, 5.7,  7.8,  7.7, 10.7,  9.1, 6.3, 8.4,  6.2, 12.6,
+            8.4, 7.7,  9.1, 12.0,  8.8,  6.0, 8.7, 7.2,  6.2, 10.0,
+            8.6, 6.1,  6.9,  6.2,  7.0, 11.5, 9.0, 7.2, 11.1,  6.0,
+            6.6, 5.0, 12.4,  7.1,  9.9,  8.8, 5.5, 6.6,  3.8,  8.0,
+            6.8, 8.8, 17.6,  7.9,  9.4,  6.1, 6.0, 5.8, 16.4,  4.9 )
 # EX.
+
+#populaçao ?
+#amostra n1=n2=50
+
+
+#h0 m1 = m2        m1-m2 =0
+#vs            <=>
+#h1 m1 =|= m2      m1-m2 !=0
+#bilateral
+
+teste<-BSDA::z.test(
+  x = dieta1,                 # Primeira Amostra
+  sigma.x = sd(dieta1),       # Desvio Padrão da Amostra 1
+  y = dieta2,                 # Segunda Amostra
+  sigma.y = sd(dieta2),       # Desvio Padrão da Amostra 2
+  mu=0,
+  alternative = "two.sided"
+)
+
+teste$p.value # =0.0439899
+#como 0.0439899 < 0.05 ou seja, valor-p < α ent   rejeita-se H0
+#Com base nas amostras e para um nıvel de significancia de 5%, as dietas
+#parecem ter efeitos diferentes na perda de peso.
 
 "----------------------------------------------------------------------"
 
