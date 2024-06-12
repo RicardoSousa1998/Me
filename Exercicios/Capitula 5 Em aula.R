@@ -121,7 +121,7 @@ BSDA::z.test(
 #exemplo 3
 
 #ho = mu1-mu2 =0
-#h1 mu1-me2 |= 0
+#h1 mu1-me2 =|= 0
 
 #teste bi lateral
 
@@ -137,7 +137,34 @@ sd(amostra32)
 
 #zobs = (((x̅1 - x̅2) - (μ1 - μ2)) / sqrt((σ1^2 / n1) + (σ2^2 / n2))) ~ N(0, 1)
 #zobs = ((72.6875 - 75) / sqrt((8.40292^2 / 32) + (5.6669^2 / 36))) =-1.31
-´
+
 BSDA::z.test(x=amostra31,y=amostra32,sigma.x = sd(amostra31), sigma.y = sd(amostra32),mu=0,alternative = "two.sided")
 
 
+#exemplo 4
+
+#h0 mud - mua  <=0
+
+#h1  mud - mua >0
+
+#ou seja 
+
+# HO muD <=0
+
+
+# H1 muD >0
+
+#D= Depois - Antes
+
+depois <- c(16, 24, 18, 14, 26, 17, 29)
+antes <-c(13, 18, 14, 16, 19 ,12 ,22)
+#Como as amostras aleatorias sao emparelhadas, vamos construir uma ´unica
+#amostra, a amostra das diferencas:
+
+Depois_Antes <-c(depois-antes)
+
+t.test(x=depois,y=antes,alternative="greater",mu=0,paired=TRUE)
+#ou
+t.test(x=Depois_Antes,alternative = "greater", mu=0)
+
+#como pvalue < alpha logo rejeita-se h0
