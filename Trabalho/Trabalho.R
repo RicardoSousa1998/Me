@@ -58,7 +58,7 @@ sqrt(teste$statistic / (sum(TabelaPlataformaAnuncio) * (min(nrow(TabelaPlataform
 #So quando  as 2 das variaveis sao qualitativas ordinais
 
 
-
+#'*verificar independecia*
 #como  p-value = 0.4775 < 0.05 rejeitamos h0 logo Plataforma~Anuncio não são independentes 
 #coeficiente de contingência = 0.1214379  sugere uma associação fraca entre as variaveis € [0.10,0.30[
 #coeficiente V de Crámer = 0.08650982 sugere uma associação fraca entre as variaveis  € [0.07, 0.20[
@@ -84,6 +84,7 @@ ContCoef(TabelaPlataformaMercado)
 CramerV(TabelaPlataformaMercado)
 #ou
 sqrt(teste$statistic / (sum(TabelaPlataformaMercado) * (min(nrow(TabelaPlataformaMercado), ncol(TabelaPlataformaMercado)) - 1)))
+#'*verificar independecia*
 
 #como  p-value = 0.4427 < 0.05 rejeitamos h0 logo Plataforma~Mercado não são independentes 
 #coeficiente de contingência = 0.1253855 sugere uma associação fraca entre as variaveis € [0.10,0.30[
@@ -109,6 +110,8 @@ ContCoef(TabelaAnucioMercado)
 CramerV(TabelaAnucioMercado)
 #ou
 sqrt(teste$statistic / (sum(TabelaAnucioMercado) * (min(nrow(TabelaAnucioMercado), ncol(TabelaAnucioMercado)) - 1)))
+
+#'*verificar independecia*
 
 #como  p-value = 0.006494 < 0.05 rejeitamos h0 logo Anuncio~Mercado não são independentes 
 #coeficiente de contingência = 0.2397089 sugere uma associação fraca entre as variaveis € [0.10,0.30[
