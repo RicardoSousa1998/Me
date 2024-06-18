@@ -729,17 +729,42 @@ teste$p.value # =0.0439899
 #'*     α = 0.05.                                                     *
 "---------------------------"
 
+amostra <- c(
+  10.1, 10.8, 11.4,  8.4,  7.7, 11.4, 11.1,  9.8, 11.4,  8.9, 7.5,
+  8.9,  8.0, 10.0, 11.5, 10.5, 10.0,  8.6, 10.9,  9.1, 10.2, 8.7,
+  12.3, 10.7, 11.5,  9.3,  9.7, 10.1, 12.3,  8.6, 10.4)
 
 # EX.
 
 #### 1) #####
+# H0: X1 ~ Normal 
+#vs. 
+#H1: X1 !~ Normal
 
+#como n= 31 <50
+
+shapiro.test(amostra)
+## Como P-Value = 0.5215 > α = 0.05, não se rejeita H0.
+## Com base na amostra e com 5% de significância, pode-se concluir
+## que a população pode ser considerada Normal.
 
 
 #### 2) #####
+#H0: σ^2 = 5 
+#vs. 
+#H1: σ^2 > 5
+# Teste Unilateral Direito
+EnvStats::varTest(
+  x = amostra,                   
+  alternative = "greater",
+  sigma.squared = 5
+)
+# X^2_obs = 10.4277
+# P-Value = 0.9997
 
-
-
+## Como P-Value = 0.9997 > α = 0.05,  não se rejeita H0.
+## Com base na amostra e com 5% de significância, pode-se concluir
+## que a variância é igual a 5.
 "----------------------------------------------------------------------"
 
 #### Exercicio 5.12 ####
@@ -762,14 +787,49 @@ teste$p.value # =0.0439899
 
 
 # EX.
+ 
+
+#n1 = 21.
+
+
+
+amostra2 <- c(
+  7.85,  8.23,  1.75, 7.22, 3.13, 1.12,
+  1.57,  5.67,  3.87
+)
+# n2 = 9.
 
 #### 1) #####
+#H0: X1 & x2 ~ Normal 
+#vs. 
+#H1: X1 & x2!~ Normal
 
+#n1 = 21 e n2 = 9 < 50.
+shapiro.test(amostra1)
+shapiro.test(amostra2)
 
+## Como P-Value_1 = 0.3155 e P-Value_2 = 0.2171 > α = 0.05, não se rejeita H0.
 
 #### 2) #####
 
 
+# H0: σ1^2 <= σ2^2     σ1^2/σ2^2 <= 1  
+#vs.                <=> 
+#H1: σ1^2 > σ2^2      σ1^2/σ2^2 > 1
+# Teste Unilateral Direito
+var.test(
+  x = amostra1,                 # Primeira Amostra
+  y = amostra2,                 # Segunda Amostra
+  alternative = "greater",
+  ratio = 1
+)
+# F_obs = 2.3462
+# P-Value = 0.1085
+
+# Como P-Value = 0.1085 > α = 0.05, não se rejeita H0.
+# Com base na amostra e com 5% de significância, pode-se concluir
+# que a variância da população 1 parece ser inferior ou igual à
+# variância da população 2.
 
 "----------------------------------------------------------------------"
 
@@ -793,18 +853,71 @@ teste$p.value # =0.0439899
 #'*     Ao nível de 1%, esta afirmação é consistente com os dados?    *
 "---------------------------"
 
-
+amostra1<-c(10.25, 10.56, 10.23, 10.45, 10.54, 10.21, 10.65, 10.56 )
+amostra2<-c(11.15, 10.84, 10.69, 10.78, 10.93, 10.87, 11.03, 10.93, 10.30 )
+n1<-length(amostra1)
+n2<-length(amostra2)
 # EX.
 
 #### 1) #####
+#H0: X1 & x2 ~ Normal 
+#vs. 
+#H1: X1 & x2!~ Normal
 
+#n1 = 8 e n2 = 9 < 50.
+shapiro.test(amostra1)
+shapiro.test(amostra2)
+
+
+## Como P-Value_1 = 0.1146 e P-Value_2 = 0.2639 > α = 0.01, não se rejeita H0.
+# Com base na amostra e com 1% de significância, pode-se concluir
+# que as populações podem ser consideradas Normais.
 
 
 #### 2) #####
+#H0: σ1^2 = σ2^2           σ1^2/σ2^2 = 1
+#vs.                 <=> 
+#H1: σ1^2 != σ2^2            σ1^2/σ2^2 != 1
 
+# Teste Bilateral
+var.test(
+  x = amostra1,                 # Primeira Amostra
+  y = amostra2,                 # Segunda Amostra
+  alternative = "two.sided",
+  ratio = 1
+)
+
+# F_obs = 0.52755
+# P-Value = 0.4144
+
+# Com base na amostra e com 1% de significância, pode-se concluir
+# que as variabilidades da produção de ambas as máquinas parece ser idênticas.
 
 
 #### 3) #####
+#h0 μ2 > μ1    μ2 <= μ1       μ2 - μ1 <= 0 
+#vs         <=>         <=> 
+#h1 μ2 < μ1    μ2 > μ1        μ2 -  μ1 >0
+# Teste Unilateral direito
+
+# Populações Normais;
+# σ1 e σ2 Desconhecidos;
+# σ1 = σ2.
+
+t.test(
+  x = amostra1,   
+  y = amostra2,   
+  paired = FALSE,        
+  var.equal = TRUE,     
+  alternative = "greater",  
+  mu = 0
+)
+# t_obs = -3.9013,
+# P-Value = 0.9993
+
+#Como P-Value = 0.9993 > α = 0.01, ent nao se rejeita-se H0.
+# Com base na amostra e com 1% de significância, pode-se concluir  que a máquina 2 produz mais em media 
+
 
 
 
@@ -825,17 +938,55 @@ teste$p.value # =0.0439899
 #'* 1.) Tome a decisão recorrendo à região crítica.                   *
 #'* 2.) Tome a decisão recorrendo ao valor-p.                         *
 "---------------------------"
+# pop
+  # Desconhecida.
+# Amostra:
+  # n = 180
+  # p* = 20/180 = 0.1111111
 
-
+  #alpha = 0.05
 # EX.
 
 #### 1) #####
+#h0 p = 0.10
+#vs
+#h1 p > 0.10
+# Teste Unilateral Direito
+
+
+prop.test(
+  x=20,
+  n=180,
+  p=0.10,
+  alternative = "greater",
+  correct = FALSE,
+)
+
+#Zobs = ((0.1111111 - 0.10) / sqrt((0.10 * 0.90 / 180)) = 0.4969035
+# R.C. = [ z_(1-α) , +∞ [ = [ qnorm(1-0.05) , +∞ [ = [ 1.6449 , +∞ [
+#Como Zobs = 0.4969035 nao € R.C. = não se rejeita H0.
+
 
 
 
 #### 2) #####
 
+#h0 p = 0.10
+#vs
+#h1 p > 0.10
+# Teste Unilateral Direito
 
+
+prop.test(
+  x=20,
+  n=180,
+  p=0.10,
+  alternative = "greater",
+  correct = FALSE,
+)
+
+#p-value =0.3096
+#Como P-Value = 0.3096 > 0.05 ou seja p-value > α ent  não se rejeita H0.
 
 "----------------------------------------------------------------------"
 
@@ -853,6 +1004,29 @@ teste$p.value # =0.0439899
 
 
 # EX.
+
+
+# Amostra
+# n = 50
+# p* = 0.27
+#α = 0.05
+
+# H0: p <= 0.20 
+#vs.
+#H1: p > 0.20
+# Teste Unilateral Direito
+
+
+# D.A.: Z = ((p* - p) / sqrt(pq / n)) ~=~ ((p* - p) / sqrt((p* * q*) / n)) ~ N(0, 1)
+
+# Z_obs = ((0.27 - 0.20) / sqrt((0.20 * 0.80) / 50)) = 1.2374
+# P-Value = P(Z >= Z_obs) = 1 - P(Z < 1.2374) = 1 - pnorm(1.2374) = 0.1080
+
+## Como P-Value = 0.1080 > α = 0.05, não se rejeita H0.
+
+# Com base na amostra e com 5% de significância, pode-se concluir
+# que não existe evidência estatística para corroborar as suspeitas
+# do diretor de produção.
 
 "----------------------------------------------------------------------"
 
@@ -981,7 +1155,8 @@ teste$p.value # =0.0439899
 
 "----------------------------------------------------------------------"
 
-#### Exercicio 5.20 ####
+#### Exercicio 5.20  feito pelo capelas ####
+
 
 
 "-------- Enunciado --------"
@@ -1002,22 +1177,188 @@ teste$p.value # =0.0439899
 "---------------------------"
 
 
-# EX.
+# Populações:
+## Desconhecidas.
 
 #### 1) #####
 
+# X1 - Peso de quem come sempre vegetais
+# X2 - Peso de quem nunca come vegetais
 
+(amostra_5_20_1_Peso_Come_Vegetais <- obesidade[obesidade$FCVC == 3,]$Peso)
+(amostra_5_20_1_Peso_Nunca_Come_Vegetais <- obesidade[obesidade$FCVC == 1,]$Peso)
+
+# Teste de Hipóteses Paramétrico: Teste para a Diferença de Médias:
+
+# 1º Passo:
+
+## H0: μ1 >= μ2 vs. H1: μ1 < μ2
+## <=>
+## H0: μ1-μ2 >= 0 vs. H1: μ1-μ2 < 0
+## Teste Unilateral Esquerdo
+
+# 2º Passo:
+
+## α = 0.01
+
+# 3º Passo:
+
+## D.A.: Z = (((x̅1 - x̅2) - (μ1 - μ2)) / sqrt((s1^2 / n1) + (s2^2 / n2))) ~ N(0, 1)
+BSDA::z.test(
+  x = amostra_5_20_1_Peso_Come_Vegetais,                 # Primeira Amostra
+  sigma.x = sd(amostra_5_20_1_Peso_Come_Vegetais),       # Desvio Padrão da Amostra 1
+  y = amostra_5_20_1_Peso_Nunca_Come_Vegetais,                 # Segunda Amostra
+  sigma.y = sd(amostra_5_20_1_Peso_Nunca_Come_Vegetais),       # Desvio Padrão da Amostra 2
+  conf.level = 0.99,  # Grau de Confiança
+  alternative = "less",
+  mu = 0
+)
+## Z_obs = 5.3663
+## P-Value = 1
+
+# 4º Passo:
+
+## Como P-Value = 1 > α = 0.01, não se rejeita H0.
+
+# 5º Passo:
+
+## Com base na amostra e com 1% de significância, pode-se concluir
+## que em média, o peso de quem come sempre vegetais é igual ou
+## superior ao peso de quem nunca come vegetais.
 
 #### 2) #####
 
+# X1 - Peso de quem nunca pratica exercício
+# X2 - Peso de quem pratica exercício pelo menos 1 dia
 
+(amostra_5_20_2_Peso_Sem_Exercicio <- obesidade[obesidade$FAF == 0,]$Peso)
+(amostra_5_20_2_Peso_Exercicio_1_Dia <- obesidade[obesidade$FAF == 1,]$Peso)
+
+# Teste de Hipóteses Paramétrico: Teste para a Diferença de Médias:
+
+# 1º Passo:
+
+## H0: μ1 <= μ2 vs. H1: μ1 > μ2
+## <=>
+## H0: μ1-μ2 <= 0 vs. H1: μ1-μ2 > 0
+## Teste Unilateral Direito
+
+# 2º Passo:
+
+## α = 0.05
+
+# 3º Passo:
+
+## D.A.: Z = (((x̅1 - x̅2) - (μ1 - μ2)) / sqrt((s1^2 / n1) + (s2^2 / n2))) ~ N(0, 1)
+BSDA::z.test(
+  x = amostra_5_20_2_Peso_Sem_Exercicio,                 # Primeira Amostra
+  sigma.x = sd(amostra_5_20_2_Peso_Sem_Exercicio),       # Desvio Padrão da Amostra 1
+  y = amostra_5_20_2_Peso_Exercicio_1_Dia,                 # Segunda Amostra
+  sigma.y = sd(amostra_5_20_2_Peso_Exercicio_1_Dia),       # Desvio Padrão da Amostra 2
+  conf.level = 0.95,  # Grau de Confiança
+  alternative = "greater",
+  mu = 0
+)
+## Z_obs = -3.2156
+## P-Value = 0.9993
+
+# 4º Passo:
+
+## Como P-Value = 0.9993 > α = 0.05, não se rejeita H0.
+
+# 5º Passo:
+
+## Com base na amostra e com 5% de significância, pode-se concluir
+## que em média, o peso de quem nunca pratica exercício físico é
+## igual ou inferior ao peso de quem pratica pelo menos 1 dia
+## exercício físico.
 
 #### 3) #####
 
+# X - Obesos que comem habitualmente alimentos altamente calóricos.
 
+# n = nrow(obesidade) = 2111
+
+(amostra_5_20_3 <- obesidade[obesidade$FAVC == 1,])
+# n_X = nrow(amostra_5_20_3) = 1866
+
+# p* = 1866/2111 = 0.8839 = 88.39%
+
+# Teste de Hipóteses Paramétrico: Teste para a Proporção:
+
+# 1º Passo:
+
+## H0: p <= 0.8 vs. H1: p > 0.8
+## Teste Unilateral Direito
+
+# 2º Passo:
+
+## α = 0.06
+
+# 3º Passo:
+
+## D.A.: Z = ((p* - p) / sqrt((p* * q*) / n)) ~ N(0, 1)
+## Z_obs = ((0.8839 - 0.8) / sqrt((0.8839 * (1 - 0.8839)) / 2111)) = 12.0334
+## P-Value = P(Z >= Z_obs) = 1 - pnorm(12.0334) = 0
+
+# 4º Passo:
+
+## Como P-Value = 0 <= α = 0.06, rejeita-se H0.
+
+# 5º Passo:
+
+## Com base na amostra e com 6% de significância, pode-se concluir
+## que a percentagem de obesos que come habitualmente alimentos
+## altamente calóricos aparenta ser superior a 80%.
 
 #### 4) #####
 
+# X1 - Obesos masculinos que nunca comem entre as refeições principais.
+# X2 - Obesos femininos que nunca comem entre as refeições principais.
+
+# n = nrow(obesidade) = 2111
+
+(amostra_5_20_4_Masc <- obesidade[obesidade$CAEC == "N" & obesidade$Genero == "Masculino",])
+# n_X1 = nrow(amostra_5_20_4_Masc) = 36
+
+(amostra_5_20_4_Fem <- obesidade[obesidade$CAEC == "N" & obesidade$Genero == "Feminino",])
+# n_X2 = nrow(amostra_5_20_4_Fem) = 15
+
+# p1* = 36/2111 = 0.01705 = 1.705%
+# p2* = 15/2111 = 0.007106 = 0.7106%
+
+# Teste de Hipóteses Paramétrico: Teste para a Diferença de Proporções:
+
+# 1º Passo:
+
+## H0: p1 = p2 vs. H1: p1 != p2
+## <=>
+## H0: p1 - p2 = 0 vs. H1: p1 - p2 != 0
+## Teste Bilateral
+
+# 2º Passo:
+
+## α = 0.03
+
+# 3º Passo:
+
+# D.A.: Z = (((p1* - p2*) - (p1 - p2)) / sqrt(((p1 * q1) / n1) + ((p2 * q2) / n2)))
+# D.A.: Z ~=~ (((p1* - p2*) - (p1 - p2)) / sqrt(((p1* * q1*) / n1) + ((p2* * q2*) / n2)))
+# D.A.: z ~ N(0, 1)
+
+## Z_obs = (((0.01705 - 0.007106) - 0) / sqrt(((0.01705 * (1 - 0.01705)) / 2111) + ((0.007106 * (1 - 0.007106)) / 2111)))
+##       = 2.9606
+## P-Value = P(Z >= Z_obs) = 1 - pnorm(2.960614) = 0.001535
+
+# 4º Passo:
+
+## Como P-Value = 0.001535 <= α = 0.03, rejeita-se H0.
+
+# 5º Passo:
+
+## Com base na amostra e com 3% de significância, pode-se concluir
+## que há diferenças na percentagem de obesos que nunca comem entre
+## as refeições principais do género feminino e do género masculino.
 
 
 "----------------------------------------------------------------------"

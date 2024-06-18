@@ -931,3 +931,138 @@ remover_outliers <- function (VARIAVEL) {
 
 #▶ se valor-p ≤ α, entao rejeita-se H0
 #▶ se valor-p > α, entao não se rejeita H0
+
+
+
+
+#### Regras de Validação do Teste de Ajustamento Qui-Quadrado: ####
+
+###### Dimensão da Amostra Maior que 30: ######
+if (DIMENSAO_AMOSTRA > 30) {
+  print("Respeita a Regra.")
+} else {
+  print("Amostra Demasiado Pequena!")
+}
+
+###### Todas as Freq. Esperadas >= 1: ######
+if (length(which(RES_CHISQ$expected < 1)) > 0) {
+  print("Juntar Linhas da Tabela de Frequências!")
+} else {
+  print("Respeita a Regra.")
+}
+
+###### Não Há Mais de 20% das Freq. Esperadas < 5: ######
+if (length(which(RES_CHISQ$expected < 5)) > (k * 0.2)) {
+  print("Juntar Linhas da Tabela de Frequências!")
+} else {
+  print("Respeita a Regra.")
+}
+
+#### Construção de uma Tabela de Contingência: ####
+
+# 1º - Definir a coluna das Freq. Absolutas = Freq. Observadas (Oi = ni):
+(Oi <- table(TABELA_OU_VAR_DAS_CLASSES))
+
+# 2º - Estimar Parâmetros (se necessário):
+# . . .
+
+# Indicar o Nº de Parâmetros Estimados:
+(r <- NR_PARAMETROS_ESTIMADOS)
+
+# Indicar o Nº de Linhas na Tabela / Nº de Elementos no Domínio:
+(k <- NR_LINHAS_TABELA)
+
+# Definir os Graus de Liberdade do Qui-Quadrado:
+(gl <- k - 1 - r)
+
+# 3º - Definir a coluna das Probabilidades (pi):
+## Se xi é um valor: pi = P(X <= xi)
+## Se xi é uma classe: pi = P(LIM_INF < X < LIM_SUP)
+### Os sinais < > variam consoante a classe é aberta/fechada.
+
+## Código para calcular a coluna pi para Distribuições Uniformes Discretas:
+(pi <- rep(1/k, k))
+sum(pi) # Tem que dar ~=~ 1, caso contrário está errado!
+
+## Código para calcular a coluna pi para Distribuições Poisson:
+(pi = dpois(xi, MEDIA_POISSON))
+pi[k] <- 1 - ppois(xi[k-1], MEDIA_POISSON)
+sum(pi) # Tem que dar ~=~ 1, caso contrário está errado!
+round(pi, 4)
+
+## Código para calcular a coluna pi para Distribuições Binomiais:
+for (i in 1:k) {
+  pi[i] <- dbinom(DOMINIO_DE_X[i], N_BINOMIAL, P_BINOMIAL)
+}
+round(pi, 4)
+sum(pi) # Tem que dar ~=~ 1, caso contrário está errado!
+
+## Código para calcular a coluna pi para Distribuições Exponencias:
+(pi <- pexp(cortes[2:(k+1)], 1/estimativa))
+for (i in 2:k) {
+  pi[i] <- pexp(cortes[i+1], 1/estimativa) - pexp(cortes[i], 1/estimativa)
+}
+pi[k] <- 1 - pexp(cortes[k], 1/estimativa)
+round(pi, 4)
+sum(pi) # Tem que dar ~=~ 1, caso contrário está errado!
+
+# Caso seja preciso juntar linhas, deve-se verificar quais as
+# que falham à regra para as juntar.
+# Após saber quais juntar, deve-se refazer o processo de
+# construção (incluindo as classes, se necessário).
+
+# Caso se estimem parâmetros, apenas o valor da E.T. do teste
+# estará correto.
+# Para saber o P-Value correto, é necessário calculá-lo.
+
+# Exemplo da Exponencial:
+(p.value_correto <- 1 - pchisq(teste_qui_quadrado$statistic, gl))
+
+
+
+
+
+#### Medidas de Associação: ####
+
+library(DescTools)
+
+# Tabela de Contingência de Exemplo (já definida)
+# | 24 | 41 |
+# |  6 | 11 |
+
+TABELA_CONTINGENCIA <- data.frame(
+  coluna1 = c(24, 6),
+  coluna2 = c(41, 11)
+)
+
+###### Coeficiente de Contingência: ######
+ContCoef(TABELA_CONTINGENCIA)
+
+###### Coeficiente V de Crámer: ######
+CramerV(TABELA_CONTINGENCIA)
+
+###### Coeficiente Tb de Kendall: ######
+KendallTauB(TABELA_CONTINGENCIA)
+# OU
+KendallTauB(as.matrix(TABELA_CONTINGENCIA))
+
+
+
+
+# Símbolos: ####
+
+# ✓ --> Certo
+# ∧ --> Conjunção / E
+# ∀x --> Todo e qualquer x
+# √ --> Raiz Quadrada
+# Σ --> Somatório
+# λ --> Lambda
+# Φ --> Fi (Dist. Normal Reduzida -> F(X))
+# μ --> IU / Média
+# σ --> Sigma / Desvio Padrão
+# ∫ --> Integral
+# ∞ --> Infinito
+# [-∞, +∞] --> Intervalo Infinito
+# x̅ --> Média da Amostra
+# α --> Alfa
+# θ --> Theta
