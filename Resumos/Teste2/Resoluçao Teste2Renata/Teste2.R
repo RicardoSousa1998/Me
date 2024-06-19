@@ -183,8 +183,50 @@ t.test(x=amostrax,
 #'*2*
   #'*b)*
     #'*ii)*
+#Pretende-se determinar a dimensao da amostra n de modo a construir um intervalo de confianca a 99% para p com uma margem de erro que nao ultrapassa os 2%.
+#Populacao Binomial e Amostra n ≥ 30, entao o intervalo de confianca para a proporcao ´e
+
+# I.C.: ] p* |-+| z_(1 - (α/2)) * sqrt((p* * q*) / n) [
+
+# Margem de erro  = p* |-+| z_(1 - (α/2)) * sqrt((p* * q*) / n)/2 <=>  z_(1 - (α/2)) * sqrt((p* * q*) / n)
+
+b<-30 #n inicial
+c<-0.02 # Valor desejado da amplitude do  intervalo de conf
+
+
+while (TRUE)
+{
+  margem_erro= qnorm(1-0.01/2)*sqrt(0.5*0.5 / b)
+  if (margem_erro  < c ) {
+    break
+  }
+  
+  b <- b + 1
+}
+#r n ≥ 4147
   
   
 #'*2*
   #'*b)*
     #'*iii)*
+
+#n1 = 850 homens >30
+#n2 = 2000 mulheres  >30
+
+#p1* = 75/850 = 0.08823529
+#p2* = 5/2000 = 0.0025
+#q1* = 1- 0.08823529
+#q2 = 1- 0.0025
+#grau de confianca = 1 − α = 0.90
+#nıvel de significancia = α = 0.10
+
+
+#] (p1* - p2*) |-+| z_(1 - (α/2)) * sqrt(((p1* * q1*) / (n1)) + ((p2* * q2*) / (n2)))
+#] (0.08823529 - 0.0025) |-+| z_(1 - (α/2)) * sqrt(((0.08823529 * 0.9117647) / (850)) + ((0.0025 * 0.9975) / (2000)))
+#] 0.08573529 |-+| z_(1 - (α/2)) * 0.009792534 [
+# ]0.08573529 |-+| 0.01610729[ 
+#] 0.069628 ;0.01610729 [
+
+#para intervalo de conf 0.90 para a diferen¸ca de percentagens, (p1 − p2) × 100%
+#]6.96, 10.18[ e como 0 nao € entao existem diferen¸cas significativas nas percentagens de daltonismo
+#entre homens e mulheres.
