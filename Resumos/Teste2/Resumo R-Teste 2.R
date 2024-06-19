@@ -890,20 +890,129 @@ prop.test(
 
 # Distribuição Discreta ou Contínua com Classes:
 # Qui-Quadrado
-chisq.test()
+chisq.test(
+  x = Oi,  # Frequências Observadas (Freq. Absolutas)
+  p = pi   # Frequências Esperadas
+)
+RES_CHISQ <- chisq.test(x = Oi, p = pi)
+RES_CHISQ$statistic # Qobs
+RES_CHISQ$parameter # Graus de Liberdade
+RES_CHISQ$p.value   # Valor-P
+RES_CHISQ$observed  # Oi
+RES_CHISQ$expected  # Ei = npi
 
-# Distribuição Contínua Completamente Especificada:
+# Para testar se a População segue uma Distribuição Contínua (Completamente Especificada):
 # Kolmogorov-Smirnov
-ks.test()
+## ks.test()
+ks.test(
+  VARIAVEL,       # Amostra
+  "DISTRIBUIÇÂO", # Distribuição a Testar
+  rate = MEDIA    # Média
+)
 
-# Normal e n >= 50:
+# Para testar se a População segue uma Normal (com n >= 50, sem a especificar completamente):
 # Lilliefors
-nortest::lillie.test()
+## nortest::lillie.test()
+nortest::lillie.test(
+  VARIAVEL  # Amostra
+)
 
-# Normal e n < 50:
+# Para testar se a População segue uma Normal (com n < 50):
 # Shapiro Wilk
-shapiro.test()
+## shapiro.test()
+shapiro.test(
+  VARIAVEL  # Amostra
+)
 
+###### Teste de Independência: ######
+
+# Qui-Quadrado
+
+# Não sai no 2º teste!
+
+# Função -> chisq.test()
+# Argumentos da Função: Tabela de Contingência Bidimensional
+
+RES_CHISQ <- chisq.test(
+  TABELA_CONTINGENCIA,  # Tabela de Contingência
+  correct = FALSE
+)
+
+RES_CHISQ$statistic # Qobs
+RES_CHISQ$parameter # Graus de Liberdade
+RES_CHISQ$p.value   # Valor-P
+RES_CHISQ$observed  # Oi = Frequências Observadas
+RES_CHISQ$expected  # Ei = Frequências Esperadas
+
+"-------------------------------"
+
+###### Testes à Igualdade de 2 Distribuições: ######
+
+## Tipos de Teste:
+### Bilateral => "two.sided"
+### Unilateral Direito => "greater"
+### Unilateral Esquerdo => "less"
+
+# Wilcoxon
+## D = AMOSTRA_Y - AMOSTRA_X
+## H0: Mediana de D = 0
+## vs.
+## H1: Mediana de D > 0
+wilcox.test(
+  x = AMOSTRA_Y,            # Amostra X
+  y = AMOSTRA_X,            # Amostra Y
+  alternative = "greater",  # Tipo de Teste
+  mu = 0,                   # Média de H0
+  paired = TRUE             # São Emparelhadas?
+)
+RES_WILCOX <- wilcox.test()
+RES_WILCOX$statistic   # Tobs
+RES_WILCOX$p.value     # valor-p
+RES_WILCOX$null.value  # H0: MD = 0
+RES_WILCOX$alternative # H1: MD > 0
+
+# Mann-Whitney
+## MX - MY
+## H0: Mediana de X = Mediana de Y
+## vs.
+## H1: Mediana de X < Mediana de Y
+wilcox.test(
+  x = AMOSTRA_X,         # Amostra X
+  y = AMOSTRA_Y,         # Amostra Y
+  alternative = "less",  # Tipo de Teste
+  mu = 0,                # Média de H0
+  paired = FALSE         # São Emparelhadas?
+)
+RES_MANN <- wilcox.test()
+RES_MANN$statistic    # Uobs
+RES_MANN$p.value      # valor-p
+RES_MANN$null.value   # H0: MX - MY = 0
+RES_MANN$alternative  # H1: MX - MY < 0
+
+"-------------------------------------------------------------"
+
+#### Regras de Validação do Teste de Ajustamento Qui-Quadrado: ####
+
+###### Dimensão da Amostra Maior que 30: ######
+if (DIMENSAO_AMOSTRA > 30) {
+  print("Respeita a Regra.")
+} else {
+  print("Amostra Demasiado Pequena!")
+}
+
+###### Todas as Freq. Esperadas >= 1: ######
+if (length(which(RES_CHISQ$expected < 1)) > 0) {
+  print("Juntar Linhas da Tabela de Frequências!")
+} else {
+  print("Respeita a Regra.")
+}
+
+###### Não Há Mais de 20% das Freq. Esperadas < 5: ######
+if (length(which(RES_CHISQ$expected < 5)) > (k * 0.2)) {
+  print("Juntar Linhas da Tabela de Frequências!")
+} else {
+  print("Respeita a Regra.")
+}
 
 
 

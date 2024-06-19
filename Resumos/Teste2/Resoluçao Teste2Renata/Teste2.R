@@ -98,7 +98,7 @@ amostrax <- c(502 ,488, 494 ,481 ,497 ,488 ,494 ,489)
 amostray <- c(510 ,498, 512, 497 ,494 ,495 ,508)
 nx = length(amostrax)
 ny = length(amostray)
-
+var(amostray)
 #h0 x ~ normal | y ~ normal
 #vs
 #h1 x~/~normal | y ~/~ normal
@@ -158,13 +158,28 @@ t.test(x=amostrax,
 
 # ] sqrt(((n-1) * s^2) / x^2_(1 - (α/2); n-1)) , sqrt(((n-1) * s^2) / x^2_(α/2; n-1)) [
 #ent sqrt(((n-1) * s^2) / x^2_(1 - (α/2); n-1))  = 4.8662 <=>  sqrt(((ny-1) * var(amostray)) / x^2_(1 - (α/2); ny-1)) = 4.8662<=>
-#sqrt(354 / x^2_(1 - (α/2); ny-1)) = 4.8662 <=> (354 / x^2_(1 - (α/2); ny-1)) = 4.8662^2  <=>  x^2_(1 - (α/2); ny-1) = 354/23.681
+#sqrt(354 / x^2_(1 - (α/2); ny-1)) = 4.8662 <=> 354 / x^2_(1 - (α/2); ny-1) = 4.8662^2  <=>  23.681 * x^2_(1 - (α/2); ny-1) = 354
+#<=> x^2_(1 - (α/2); ny-1) = 354/23.681 
 # x^2_(1 - (α/2); ny-1) = 14.94869 <=> 1-(alpha/2) = F(14.94869) <=> 1-(alpha/2) = pchisq(14.94869,ny-1) <=>  1-(alpha/2) = 0.9793404
 #1-0.9793404 = alpha/2 <=> 0.0206596 * 2 = alpha  <=> 0.0413192
 #Entao o grau de confianca do intervalo e (1 − 0.0413) × 100% = 95.87%
 
 #k =sqrt(((ny-1) * var(amostray)) / x^2_(α/2; n-1))  < = >  sqrt(354 / qchisq(0.0413192/2,ny-1)) = 17.55451
 
+
+b<-1 #n inicial
+c<-4.8662 # Valor desejado da amplitude do  intervalo de conf
+
+
+while (TRUE)
+{
+  margem_erro= sqrt((6 * 59) / qchisq(1 - (b/2), 6)) 
+  if (margem_erro  <= c ) {
+    break
+  }
+  
+  b <- b - 0.000001
+}
 
 
 
