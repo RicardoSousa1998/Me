@@ -1156,7 +1156,27 @@ KendallTauB(TABELA_CONTINGENCIA)
 KendallTauB(as.matrix(TABELA_CONTINGENCIA))
 
 
+#### Fórmulas das Regiões Críticas: ####
 
+##### Distribuição Simétrica Normal: ####
+# Teste Bilateral: RC = ] -∞ , -qnorm(1 - (α/2)) ] U [ qnorm(1 - (α/2)) , +∞ [
+# Teste Unilateral Direito: RC = [ qnorm(1-α) , +∞ [
+# Teste Unilateral Esquerdo: RC = ] -∞ , -qnorm(1-α) ]
+
+##### Distribuição Simétrica T-Student: ####
+# Teste Bilateral: RC = ] -∞ , -qt(1 - (α/2), df) ] U [ qt(1 - (α/2), df) , +∞ [
+# Teste Unilateral Direito: RC = [ qt(1-α, df) , +∞ [
+# Teste Unilateral Esquerdo: RC = ] -∞ , -qt(1 - α, df) ]
+
+##### Distribuição Assimétrica Qui-Quadrado: ####
+# Teste Bilateral: RC = [ 0 , qchisq(α/2, df) ] U [ qchisq(1 - (α/2), df) , +∞ [
+# Teste Unilateral Direito: RC = [ qchisq(1-α, df) , +∞ [
+# Teste Unilateral Esquerdo: RC = [ 0 , qchisq(α, df) ]
+
+##### Distribuição Assimétrica F de Snedecor: ####
+# Teste Bilateral: RC = [ 0 , qf(α/2, df1, df2) ] U [ qf(1-(α/2), df1, df2) , +∞ [
+# Teste Unilateral Direito: RC = [ qf(1-α, df1, df2) , +∞ [
+# Teste Unilateral Esquerdo: RC = [ 0 , qf(α, df1, df2) ]
 
 # Símbolos: ####
 
