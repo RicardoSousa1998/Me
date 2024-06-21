@@ -212,7 +212,7 @@ c<-0.02 # Valor desejado da amplitude do  intervalo de conf
 while (TRUE)
 {
   margem_erro= qnorm(1-0.01/2)*sqrt(0.5*0.5 / b)
-  if (margem_erro  < c ) {
+  if (margem_erro  <= c ) {
     break
   }
   
