@@ -83,3 +83,139 @@ KendallTauB(TabelaAnucioMercado) #-0.1670242
 #coeficiente V de Crámer = 0.1431757 sugere uma associação fraca entre as variaveis  € [0.07, 0.20[
 #Coeficiente Tb de Kendall =  -0.1670242 sugere que existe uma fraca correlação negativa entre as variáveis
 
+
+
+#*************************************************************************
+#*************************************************************************
+#************************************PARTE2*******************************
+#*************************************************************************
+#*************************************************************************
+#*************************************************************************
+#TODO 
+#definir a variável dependente e independente 
+#indicar a equação da reta de regressão
+#interpretar os coeficientes obtidos 
+#avaliar a qualidade do modelo ajustado
+#fazer uma análise dos resíduos.
+
+
+#'*Conversoes~investimento*
+
+#definir a variável dependente e independente DONE
+#indicar a equação da reta de regressão DONE
+#interpretar os coeficientes obtidos  DONE 
+#avaliar a qualidade do modelo ajustado done ?
+#fazer uma análise dos resíduos. DONE 
+
+
+#Variavel dependente (Y)é Conversoes
+#Variavel independente (X) é investimento
+
+
+modelo_conversoes_investimento <- lm(conversoes ~ investimento, data = DadosMarkDig)
+
+# Resumo do modelo
+summary(modelo_conversoes_investimento)
+
+# linha de regressão
+plot(DadosMarkDig$investimento, DadosMarkDig$conversoes, main="Regressão Linear Simples",
+     xlab="Investimento (milhares de euros)", ylab="Conversões")
+abline(modelo_conversoes_investimento, col="blue")  #Correlação linear positiva rxy > 0  e forte  forte  1 >  rxy  > 0.8
+
+#Coeficiente de Correlacao Linear
+cor(DadosMarkDig$conversoes,DadosMarkDig$investimento) #  rxy = 0.9387048
+
+#equação da reta de regressão
+coeficientes <- coef(modelo_conversoes_investimento)
+A <- coeficientes[1] #ou modelo_conversoes_investimento$coefficients[1]
+B <- coeficientes[2] #ou modelo_conversoes_investimento$coefficients[2]
+
+equacao <- paste("conversoes = ", round(A, 2), " + ", round(B, 2), " * investimento")
+print(equacao)
+#quanto maior o investimento na campanha , maior o número de conversões esperadas.
+
+
+# Análise dos resíduos
+residuos_conversoes <- residuals(modelo_conversoes_investimento)
+plot(DadosMarkDig$investimento, residuos_conversoes, main = "Resíduos do Modelo de Conversões", xlab = "Investimento (milhares de euros)", ylab = "Resíduos")
+abline(h = 0, col = "red")
+#o modelo de residuos  é bom pq tem a ausência de padrões claros (funil ou curva ) e parecem estar distribuídos
+#aleatoriamente ao redor da linha horizontal em zero,
+
+
+
+
+
+# Analisar os resíduos (POSSIVEL CODIGO REVER)
+par(mfrow=c(2,2)) 
+plot(modelo_conversoes_investimento)
+par(mfrow=c(1,1))
+
+
+
+#'*cliques~investimento*
+
+#definir a variável dependente e independente DONE
+#indicar a equação da reta de regressão DONE
+#interpretar os coeficientes obtidos   DONE
+#avaliar a qualidade do modelo ajustado 
+#fazer uma análise dos resíduos.  
+
+
+#Variavel dependente (Y)é cliques
+#Variavel independente (X) é investimento
+
+
+modelo_cliques_investimento <- lm(cliques ~ investimento, data = DadosMarkDig)
+
+# Resumo do modelo
+summary(modelo_cliques_investimento)
+
+# linha de regressão
+plot(DadosMarkDig$investimento, DadosMarkDig$cliques, main="Regressão Linear Simples",
+     xlab="Investimento (milhares de euros)", ylab="Cliques")
+abline(modelo_cliques_investimento, col="blue")  #Correlação linear negativa rxy < 0  e forte    -1 >  rxy  > -0.8
+
+#Coeficiente de Correlacao Linear
+cor(DadosMarkDig$cliques,DadosMarkDig$investimento) #  rxy = -0.813987
+
+#equação da reta de regressão
+coeficientes <- coef(modelo_cliques_investimento)
+A <- coeficientes[1] # ou modelo_cliques_investimento$coefficients[1]
+B <- coeficientes[2] # ou modelo_cliques_investimento$coefficients[2]
+
+equacao <- paste("Cliques = ", round(A, 2), " + ", round(B, 2), " * investimento")
+print(equacao)
+
+# quanto maior o investimento na campanha , menor o número de cliques esperados. 
+#Isso pode parecer contra intuitivo, mas é o resultado da análise dos dados fornecidos.
+
+
+# Análise dos resíduos
+residos <- residuals(modelo_cliques_investimento)
+plot(DadosMarkDig$investimento, residos, main = "Resíduos do Modelo de Conversões", xlab = "Investimento (milhares de euros)", ylab = "Resíduos")
+abline(h = 0, col = "red")
+#o modelo de residuos  é bom pq tem a ausência de padrões claros (funil ou curva ) e parecem estar distribuídos
+#aleatoriamente ao redor da linha horizontal em zero,
+
+
+
+hist(residos, main="Histograma dos Resíduos", xlab="Resíduos", breaks=20)
+qqnorm(residos)
+qqline(residos, col="red")
+
+# Calcular medidas de influência
+influence.measures(modelo_conversoes)
+
+
+
+# Analisar os resíduos (POSSIVEL CODIGO REVER)
+par(mfrow=c(2,2)) 
+plot(modelo)
+par(mfrow=c(1,1))
+
+
+
+
+
+
