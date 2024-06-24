@@ -200,12 +200,6 @@ abline(h = 0, col = "red")
 
 
 
-hist(residos, main="Histograma dos Resíduos", xlab="Resíduos", breaks=20)
-qqnorm(residos)
-qqline(residos, col="red")
-
-# Calcular medidas de influência
-influence.measures(modelo_conversoes)
 
 
 
