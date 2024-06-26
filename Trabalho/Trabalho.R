@@ -75,13 +75,12 @@ ContCoef(TabelaAnucioMercado) # 0.1984537
 CramerV(TabelaAnucioMercado) # 0.1431757
 
 #Coeficiente Tb de Kendall: 
-KendallTauB(TabelaAnucioMercado) #-0.1670242
+#Nao se usa neste caso
 
 
 #como  p-value = 0.03834764 < 0.05 ent  rejeia-se h0 logo Anuncio~Mercado nao são independentes 
 #coeficiente de contingência = 0.1984537 sugere uma associação fraca entre as variaveis € [0.10,0.30[
 #coeficiente V de Crámer = 0.1431757 sugere uma associação fraca entre as variaveis  € [0.07, 0.20[
-#Coeficiente Tb de Kendall =  -0.1670242 sugere que existe uma fraca correlação negativa entre as variáveis
 
 
 
@@ -101,11 +100,6 @@ KendallTauB(TabelaAnucioMercado) #-0.1670242
 
 #'*Conversoes~investimento*
 
-#definir a variável dependente e independente DONE
-#indicar a equação da reta de regressão DONE
-#interpretar os coeficientes obtidos  DONE 
-#avaliar a qualidade do modelo ajustado done ?
-#fazer uma análise dos resíduos. DONE 
 
 
 #Variavel dependente (Y)é Conversoes
@@ -126,9 +120,8 @@ abline(modelo_conversoes_investimento, col="blue")  #Correlação linear positiv
 cor(DadosMarkDig$conversoes,DadosMarkDig$investimento) #  rxy = 0.9387048
 
 #equação da reta de regressão
-coeficientes <- coef(modelo_conversoes_investimento)
-A <- coeficientes[1] #ou modelo_conversoes_investimento$coefficients[1]
-B <- coeficientes[2] #ou modelo_conversoes_investimento$coefficients[2]
+A <- modelo_conversoes_investimento$coefficients[1]
+B <- modelo_conversoes_investimento$coefficients[2]
 
 equacao <- paste("conversoes = ", round(A, 2), " + ", round(B, 2), " * investimento")
 print(equacao)
@@ -145,21 +138,7 @@ abline(h = 0, col = "red")
 
 
 
-
-# Analisar os resíduos (POSSIVEL CODIGO REVER)
-par(mfrow=c(2,2)) 
-plot(modelo_conversoes_investimento)
-par(mfrow=c(1,1))
-
-
-
 #'*cliques~investimento*
-
-#definir a variável dependente e independente DONE
-#indicar a equação da reta de regressão DONE
-#interpretar os coeficientes obtidos   DONE
-#avaliar a qualidade do modelo ajustado 
-#fazer uma análise dos resíduos.  
 
 
 #Variavel dependente (Y)é cliques
@@ -180,15 +159,13 @@ abline(modelo_cliques_investimento, col="blue")  #Correlação linear negativa r
 cor(DadosMarkDig$cliques,DadosMarkDig$investimento) #  rxy = -0.813987
 
 #equação da reta de regressão
-coeficientes <- coef(modelo_cliques_investimento)
-A <- coeficientes[1] # ou modelo_cliques_investimento$coefficients[1]
-B <- coeficientes[2] # ou modelo_cliques_investimento$coefficients[2]
+A <  modelo_cliques_investimento$coefficients[1]
+B <- modelo_cliques_investimento$coefficients[2]
 
 equacao <- paste("Cliques = ", round(A, 2), " + ", round(B, 2), " * investimento")
 print(equacao)
 
 # quanto maior o investimento na campanha , menor o número de cliques esperados. 
-#Isso pode parecer contra intuitivo, mas é o resultado da análise dos dados fornecidos.
 
 
 # Análise dos resíduos
@@ -202,11 +179,6 @@ abline(h = 0, col = "red")
 
 
 
-
-# Analisar os resíduos (POSSIVEL CODIGO REVER)
-par(mfrow=c(2,2)) 
-plot(modelo)
-par(mfrow=c(1,1))
 
 
 
