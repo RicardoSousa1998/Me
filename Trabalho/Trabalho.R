@@ -17,6 +17,8 @@ DadosMarkDig = data.frame(ID=1:n, plataforma=plat, anuncio=ta, mercado=sm,
 # guardar os dados num ficheiro .txt (que deverá ser entregue com a análise)
 write.table(DadosMarkDig, "DadosMarkDig.txt", row.names=FALSE, quote=FALSE)
 
+
+
 ##############################
 
 #' Plataforma: Qualitativa Nominal
